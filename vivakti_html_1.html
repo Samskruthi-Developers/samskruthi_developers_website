@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Samskrithi Developers — Problems, Solved. Designs, Original.</title>
+<meta name="description" content="Samskrithi Developers builds Vivakti, a problem-solving operating system, Upasthiti, an attendance companion for students, and original human-made visual identities for brands."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --surface:#f0f0f3;
+  --surface-bright:#f9f9f9;
+  --bg:#e8e8ec;
+  --on-surface:#1b1b1b;
+  --on-surface-muted:#5a5354;
+  --outline-variant:#cfc4c5;
+  --accent:#ff5722;
+  --accent-dark:#b02f00;
+  --white:#ffffff;
+  --shadow-dark:rgba(163,177,198,0.65);
+  --shadow-light:rgba(255,255,255,0.95);
+  --radius-sm:.5rem; --radius-md:1rem; --radius-lg:1.5rem; --radius-full:9999px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--on-surface);overflow-x:hidden;line-height:1.5}
+img,svg{display:block;max-width:100%}
+a{color:inherit}
+.container{max-width:1180px;margin:0 auto;padding:0 2rem}
+section{padding:6rem 0}
+h1,h2,h3,h4{font-family:'Anton',sans-serif;text-transform:uppercase;letter-spacing:.02em;line-height:1.05}
+.raised{box-shadow:-8px -8px 16px var(--shadow-light),8px 8px 16px var(--shadow-dark)}
+.raised-sm{box-shadow:-4px -4px 8px var(--shadow-light),4px 4px 8px var(--shadow-dark)}
+.inset{box-shadow:inset -6px -6px 12px var(--shadow-light),inset 6px 6px 12px var(--shadow-dark)}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px rgba(255,87,34,.5);margin-left:4px;position:relative;top:-.1em}
+
+/* ---------- NAV ---------- */
+header{position:fixed;top:0;left:0;right:0;z-index:200;padding:1.1rem 0;transition:box-shadow .3s,background .3s}
+header.scrolled{background:rgba(232,232,236,.85);backdrop-filter:blur(10px);box-shadow:0 4px 24px rgba(163,177,198,.35)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:'Anton',sans-serif;font-size:1.15rem;text-transform:lowercase;letter-spacing:.03em;display:flex;align-items:baseline}
+.logo b{font-weight:400}
+nav.links{display:flex;gap:2rem}
+nav.links a{font-size:.78rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--on-surface-muted);text-decoration:none;transition:color .2s}
+nav.links a:hover{color:var(--on-surface)}
+.nav-cta{display:flex;align-items:center;gap:1rem}
+.menu-btn{display:none;width:44px;height:44px;border-radius:var(--radius-sm);border:none;background:var(--surface);cursor:pointer;box-shadow:-4px -4px 8px var(--shadow-light),4px 4px 8px var(--shadow-dark)}
+.menu-btn span{display:block;width:18px;height:2px;background:var(--on-surface);margin:4px auto;border-radius:2px}
+.mobile-panel{display:none;position:fixed;inset:0;z-index:190;background:var(--bg);padding:6rem 2rem 2rem;flex-direction:column;gap:1.5rem}
+.mobile-panel.open{display:flex}
+.mobile-panel a{font-family:'Anton',sans-serif;font-size:1.6rem;text-transform:uppercase;text-decoration:none;color:var(--on-surface)}
+
+/* ---------- BUTTONS ---------- */
+.btn{display:inline-flex;align-items:center;gap:.5rem;font-size:.8rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.9rem 1.9rem;border-radius:var(--radius-sm);border:none;cursor:pointer;background:var(--surface);color:var(--on-surface);box-shadow:-6px -6px 12px var(--shadow-light),6px 6px 12px var(--shadow-dark);transition:box-shadow .2s,transform .2s;text-decoration:none}
+.btn:hover{box-shadow:-8px -8px 16px var(--shadow-light),8px 8px 16px var(--shadow-dark);transform:translateY(-1px)}
+.btn:active{box-shadow:inset -4px -4px 8px var(--shadow-light),inset 4px 4px 8px var(--shadow-dark);transform:translateY(0)}
+.btn-accent{background:var(--accent);color:#fff;box-shadow:-6px -6px 12px var(--shadow-light),6px 6px 12px rgba(176,47,0,.45)}
+.btn-accent:hover{box-shadow:-8px -8px 16px var(--shadow-light),8px 8px 16px rgba(176,47,0,.5)}
+
+/* ---------- HERO ---------- */
+#hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding-top:8rem}
+.eyebrow{font-size:.75rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:1.5rem;opacity:0;animation:fadeUp .7s .1s ease forwards}
+.hero-title{font-size:clamp(2.8rem,7.5vw,6.2rem);margin-bottom:1.8rem;opacity:0;animation:fadeUp .8s .2s ease forwards}
+.hero-title .accent-line{color:var(--accent)}
+.hero-sub{font-size:1.15rem;line-height:1.75;color:var(--on-surface-muted);max-width:620px;margin-bottom:2.75rem;opacity:0;animation:fadeUp .8s .35s ease forwards}
+.hero-actions{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:4rem;opacity:0;animation:fadeUp .8s .5s ease forwards}
+.hero-branches{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;max-width:680px;opacity:0;animation:fadeUp .8s .65s ease forwards}
+.branch-chip{display:flex;align-items:center;gap:.9rem;padding:1.1rem 1.3rem;border-radius:var(--radius-md);background:var(--surface);box-shadow:-6px -6px 12px var(--shadow-light),6px 6px 12px var(--shadow-dark)}
+.branch-chip .mark{width:40px;height:40px;border-radius:var(--radius-sm);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:'Anton',sans-serif;font-size:.95rem;background:var(--surface);box-shadow:inset -3px -3px 6px var(--shadow-light),inset 3px 3px 6px var(--shadow-dark)}
+.branch-chip .txt b{display:block;font-family:'Anton',sans-serif;font-size:.9rem;text-transform:uppercase;letter-spacing:.04em}
+.branch-chip .txt span{font-size:.75rem;color:var(--on-surface-muted)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+
+/* ---------- SECTION HEADERS ---------- */
+.sec-head{display:flex;align-items:flex-end;gap:1rem;margin-bottom:3rem;padding-bottom:1.4rem;border-bottom:1px solid var(--outline-variant)}
+.sec-num{font-family:'Anton',sans-serif;font-size:3rem;color:var(--outline-variant);line-height:1}
+.sec-title{font-size:clamp(1.7rem,3.2vw,2.4rem)}
+.sec-kicker{font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:.8rem;display:block}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* ---------- WHAT WE DO ---------- */
+.principles{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.p-card{border-radius:var(--radius-lg);padding:2.2rem;background:var(--surface);box-shadow:-8px -8px 16px var(--shadow-light),8px 8px 16px var(--shadow-dark);transition:box-shadow .3s,transform .3s}
+.p-card:hover{box-shadow:-12px -12px 22px var(--shadow-light),12px 12px 22px var(--shadow-dark);transform:translateY(-3px)}
+.p-icon{width:52px;height:52px;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-size:1.3rem;background:var(--surface);box-shadow:inset -3px -3px 6px var(--shadow-light),inset 3px 3px 6px var(--shadow-dark);margin-bottom:1.3rem}
+.p-card h3{font-size:1.15rem;margin-bottom:.7rem}
+.p-card p{font-size:.9rem;color:var(--on-surface-muted);line-height:1.7}
+
+/* ---------- GRAPHIC DESIGN ---------- */
+.gd-wrap{display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:center}
+.gd-compare{display:flex;flex-direction:column;gap:1rem}
+.gd-row{display:flex;align-items:center;gap:1rem;padding:1.1rem 1.4rem;border-radius:var(--radius-md);background:var(--surface);box-shadow:-4px -4px 8px var(--shadow-light),4px 4px 8px var(--shadow-dark)}
+.gd-row.accent{box-shadow:inset -3px -3px 6px var(--shadow-light),inset 3px 3px 6px var(--shadow-dark)}
+.gd-tag{font-family:'Anton',sans-serif;font-size:.7rem;letter-spacing:.08em;padding:.4rem .8rem;border-radius:var(--radius-full);background:var(--surface);box-shadow:inset -2px -2px 4px var(--shadow-light),inset 2px 2px 4px var(--shadow-dark);flex-shrink:0}
+.gd-tag.hot{color:var(--accent)}
+.gd-row span.txt{font-size:.88rem;color:var(--on-surface-muted)}
+.chip-list{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.8rem}
+.pill{font-size:.72rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:.5rem 1rem;border-radius:var(--radius-full);background:var(--surface);box-shadow:-3px -3px 6px var(--shadow-light),3px 3px 6px var(--shadow-dark)}
+
+/* ---------- ECOSYSTEM TREE ---------- */
+.tree{display:flex;flex-direction:column;align-items:center;gap:0}
+.tree-root{padding:1.6rem 2.6rem;border-radius:var(--radius-lg);background:var(--surface);box-shadow:-8px -8px 16px var(--shadow-light),8px 8px 16px var(--shadow-dark);text-align:center}
+.tree-root h3{font-size:1.4rem}
+.tree-root p{font-size:.8rem;color:var(--on-surface-muted);margin-top:.4rem}
+.tree-line{width:2px;height:48px;background:var(--outline-variant)}
+.tree-branches{display:flex;gap:4rem;position:relative}
+.tree-branches::before{content:'';position:absolute;top:-2px;left:50%;transform:translateX(-50%);width:calc(100% - 2px);height:2px;background:var(--outline-variant)}
+.tree-branch-line{width:2px;height:40px;background:var(--outline-variant);margin:0 auto}
+.branch-card{width:280px;border-radius:var(--radius-lg);padding:1.8rem;background:var(--surface);box-shadow:-6px -6px 12px var(--shadow-light),6px 6px 12px var(--shadow-dark);text-align:center}
+.branch-card .b-mark{width:44px;height:44px;margin:0 auto 1rem;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-family:'Anton',sans-serif;background:var(--surface);box-shadow:inset -3px -3px 6px var(--shadow-light),inset 3px 3px 6px var(--shadow-dark)}
+.branch-card h4{font-size:1.1rem;margin-bottom:.6rem}
+.branch-card p{font-size:.82rem;color:var(--on-surface-muted);line-height:1.6}
+
+/* ---------- PRODUCT INTRO BLOCKS ---------- */
+.prod-hero{display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:center;margin-bottom:4.5rem}
+.prod-hero.rev .prod-copy{order:2}
+.prod-word{font-family:'Anton',sans-serif;font-size:clamp(2.4rem,5vw,3.6rem);margin-bottom:1.3rem}
+.prod-copy p{font-size:1.02rem;color:var(--on-surface-muted);line-height:1.8;margin-bottom:1.2rem}
+.prod-tagline{border-radius:var(--radius-md);padding:1.5rem;background:var(--surface);box-shadow:inset -4px -4px 8px var(--shadow-light),inset 4px 4px 8px var(--shadow-dark);font-family:'Anton',sans-serif;font-size:1rem;text-transform:uppercase;letter-spacing:.03em;text-align:center;color:var(--accent)}
+.prod-visual{border-radius:var(--radius-lg);padding:2.5rem;background:var(--surface);box-shadow:-8px -8px 16px var(--shadow-light),8px 8px 16px var(--shadow-dark);min-height:340px;display:flex;flex-direction:column;justify-content:center;gap:1rem}
+
+/* Vivakti flow (vertical chain) */
+.flow-step{display:flex;align-items:center;gap:1rem;padding:.85rem 1.1rem;border-radius:var(--radius-md);background:var(--surface);box-shadow:-4px -4px 8px var(--shadow-light),4px 4px 8px var(--shadow-dark)}
+.flow-step .n{font-family:'Anton',sans-serif;font-size:.85rem;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:var(--surface);box-shadow:inset -2px -2px 4px var(--shadow-light),inset 2px 2px 4px var(--shadow-dark)}
+.flow-step.hot .n{color:var(--accent)}
+.flow-step span.t{font-size:.85rem;font-weight:600}
+.flow-connect{width:2px;height:14px;background:var(--outline-variant);margin-left:2.4rem}
+
+/* Full workflow grid (8 stage) */
+.workflow-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;position:relative}
+.wf-card{border-radius:var(--radius-lg);padding:1.6rem 1.3rem;background:var(--surface);box-shadow:-6px -6px 12px var(--shadow-light),6px 6px 12px var(--shadow-dark);transition:box-shadow .3s,transform .3s;position:relative}
+.wf-card:hover{box-shadow:-10px -10px 18px var(--shadow-light),10px 10px 18px var(--shadow-dark);transform:translateY(-4px)}
+.wf-num{font-family:'Anton',sans-serif;font-size:.75rem;color:var(--outline-variant);margin-bottom:.7rem}
+.wf-card h5{font-size:.95rem;text-transform:uppercase;font-family:'Anton',sans-serif;letter-spacing:.02em;margin-bottom:.5rem}
+.wf-card p{font-size:.78rem;color:var(--on-surface-muted);line-height:1.55}
+.wf-card.final{box-shadow:-6px -6px 12px var(--shadow-light),6px 6px 12px var(--shadow-dark),0 0 0 2px rgba(255,87,34,.18) inset}
+.wf-card.final .wf-num{color:var(--accent)}
+
+/* Upasthiti 4-step arrow chain */
+.up-chain{display:flex;align-items:stretch;gap:0;flex-wrap:wrap}
+.up-card{flex:1;min-width:180px;border-radius:var(--radius-lg);padding:1.8rem 1.4rem;background:var(--surface);box-shadow:-6px -6px 12px var(--shadow-light),6px 6px 12px var(--shadow-dark);text-align:center}
+.up-card .up-icon{width:46px;height:46px;margin:0 auto 1rem;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.1rem;background:var(--surface);box-shadow:inset -3px -3px 6px var(--shadow-light),inset 3px 3px 6px var(--shadow-dark)}
+.up-card h5{font-size:.92rem;margin-bottom:.5rem}
+.up-card p{font-size:.78rem;color:var(--on-surface-muted)}
+.up-arrow{display:flex;align-items:center;justify-content:center;width:44px;font-size:1.3rem;color:var(--accent);flex-shrink:0}
+
+/* Upasthiti mini dashboard mock */
+.dash{border-radius:var(--radius-lg);padding:1.6rem;background:var(--surface);box-shadow:-8px -8px 16px var(--shadow-light),8px 8px 16px var(--shadow-dark)}
+.dash-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.4rem}
+.dash-top b{font-family:'Anton',sans-serif;font-size:.85rem;text-transform:uppercase}
+.dash-pct{font-family:'Anton',sans-serif;font-size:2.6rem;color:var(--accent)}
+.bar-row{display:flex;align-items:center;gap:.8rem;margin-bottom:.9rem}
+.bar-row .lbl{font-size:.72rem;font-weight:700;width:76px;flex-shrink:0;color:var(--on-surface-muted)}
+.bar-track{flex:1;height:10px;border-radius:var(--radius-full);background:var(--surface);box-shadow:inset -2px -2px 4px var(--shadow-light),inset 2px 2px 4px var(--shadow-dark);overflow:hidden}
+.bar-fill{height:100%;border-radius:var(--radius-full);background:var(--accent)}
+
+/* ---------- WHY US ---------- */
+.why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.4rem}
+.why-card{border-radius:var(--radius-md);padding:1.7rem;background:var(--surface);box-shadow:-5px -5px 10px var(--shadow-light),5px 5px 10px var(--shadow-dark)}
+.why-card .num{font-family:'Anton',sans-serif;color:var(--accent);font-size:1.4rem;margin-bottom:.6rem}
+.why-card h5{font-size:.92rem;margin-bottom:.5rem;text-transform:uppercase;font-family:'Anton',sans-serif}
+.why-card p{font-size:.8rem;color:var(--on-surface-muted);line-height:1.6}
+
+/* ---------- CTA ---------- */
+#cta{padding:5rem 0}
+.cta-box{border-radius:var(--radius-lg);padding:4rem 3rem;background:var(--surface);box-shadow:-10px -10px 20px var(--shadow-light),10px 10px 20px var(--shadow-dark);text-align:center}
+.cta-box h2{font-size:clamp(2rem,5vw,3.2rem);margin-bottom:1.2rem}
+.cta-box p{color:var(--on-surface-muted);max-width:520px;margin:0 auto 2.2rem;font-size:1rem}
+.cta-actions{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+
+/* ---------- FOOTER ---------- */
+footer{padding:3.5rem 0 2.5rem;border-top:1px solid var(--outline-variant)}
+.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:2.5rem;margin-bottom:2.5rem}
+.foot-brand .logo{margin-bottom:.9rem}
+.foot-brand p{font-size:.85rem;color:var(--on-surface-muted);max-width:280px;line-height:1.6}
+.foot-col h6{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--outline-variant);margin-bottom:1rem}
+.foot-col a{display:block;font-size:.85rem;color:var(--on-surface-muted);text-decoration:none;margin-bottom:.7rem;transition:color .2s}
+.foot-col a:hover{color:var(--on-surface)}
+.foot-bottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;font-size:.75rem;color:var(--on-surface-muted);padding-top:1.8rem;border-top:1px solid var(--outline-variant)}
+
+.badge-placeholder{font-size:.68rem;color:var(--outline-variant);font-style:italic}
+
+/* ---------- RESPONSIVE ---------- */
+@media(max-width:980px){
+  .principles{grid-template-columns:1fr 1fr}
+  .workflow-grid{grid-template-columns:1fr 1fr}
+  .why-grid{grid-template-columns:1fr 1fr}
+  .gd-wrap,.prod-hero{grid-template-columns:1fr;gap:2.2rem}
+  .prod-hero.rev .prod-copy{order:0}
+  .foot-grid{grid-template-columns:1fr 1fr}
+  .tree-branches{flex-direction:column;align-items:center;gap:2rem}
+  .tree-branches::before{display:none}
+  .branch-card{width:100%;max-width:320px}
+}
+@media(max-width:640px){
+  nav.links,.nav-cta .btn{display:none}
+  .menu-btn{display:block}
+  .principles{grid-template-columns:1fr}
+  .workflow-grid{grid-template-columns:1fr 1fr}
+  .why-grid{grid-template-columns:1fr}
+  .foot-grid{grid-template-columns:1fr 1fr}
+  .up-chain{flex-direction:column}
+  .up-arrow{transform:rotate(90deg);width:100%;padding:.3rem 0}
+  section{padding:4rem 0}
+  .container{padding:0 1.3rem}
+  .hero-branches{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation-duration:.001ms!important;transition-duration:.001ms!important}
+}
+</style>
+</head>
+<body>
+
+<header id="siteHeader">
+  <div class="container nav-inner">
+    <a href="#hero" class="logo">samskrithi<span class="dot"></span></a>
+    <nav class="links">
+      <a href="#what-we-do">What We Do</a>
+      <a href="#vivakti">Vivakti</a>
+      <a href="#upasthiti">Upasthiti</a>
+      <a href="#design">Design</a>
+      <a href="#why">Why Us</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="#cta" class="btn btn-accent">Get In Touch</a>
+      <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-panel" id="mobilePanel">
+  <a href="#what-we-do">What We Do</a>
+  <a href="#vivakti">Vivakti</a>
+  <a href="#upasthiti">Upasthiti</a>
+  <a href="#design">Design</a>
+  <a href="#why">Why Us</a>
+  <a href="#cta">Get In Touch</a>
+</div>
+
+<main>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="container">
+      <span class="eyebrow">Samskrithi Developers</span>
+      <h1 class="hero-title">We turn problems<br/>into <span class="accent-line">solutions</span>.<br/>And brands into <span class="accent-line">identities</span>.</h1>
+      <p class="hero-sub">A technology and creative company building practical digital products — and original, human-made visual design — instead of generic templates.</p>
+      <div class="hero-actions">
+        <a href="#ecosystem" class="btn btn-accent">Explore Our Ecosystem</a>
+        <a href="#design" class="btn">See Our Design Work</a>
+      </div>
+      <div class="hero-branches">
+        <a href="#vivakti" class="branch-chip">
+          <div class="mark">V</div>
+          <div class="txt"><b>Vivakti</b><span>Problem-solving OS</span></div>
+        </a>
+        <a href="#upasthiti" class="branch-chip">
+          <div class="mark">U</div>
+          <div class="txt"><b>Upasthiti</b><span>Attendance, tracked</span></div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SAMSKRITHI INTRO -->
+  <section id="about">
+    <div class="container reveal">
+      <div class="sec-head">
+        <div class="sec-num">01</div>
+        <h2 class="sec-title">Who We Are<span class="dot"></span></h2>
+      </div>
+      <div style="max-width:760px">
+        <p style="font-size:1.15rem;line-height:1.85;color:var(--on-surface-muted)">Samskrithi Developers builds things that solve real problems — for people navigating everyday complexity, and for brands trying to say something worth noticing. We work in two directions at once: software that does the thinking with you, and design that's made by hand, not assembled from a template.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT WE DO -->
+  <section id="what-we-do">
+    <div class="container reveal">
+      <div class="sec-head">
+        <div class="sec-num">02</div>
+        <h2 class="sec-title">What We Do<span class="dot"></span></h2>
+      </div>
+      <div class="principles">
+        <div class="p-card">
+          <div class="p-icon">⚙</div>
+          <h3>Problem-Solving Software</h3>
+          <p>Vivakti takes a real-world problem from a plain-language description all the way to a measured result — analysis, strategy, execution, and tracking, in one system.</p>
+        </div>
+        <div class="p-card">
+          <div class="p-icon">◔</div>
+          <h3>Student Tools</h3>
+          <p>Upasthiti removes the manual work of attendance tracking for college students — enter your timetable, mark your classes, know your percentage.</p>
+        </div>
+        <div class="p-card">
+          <div class="p-icon">✎</div>
+          <h3>Original Visual Design</h3>
+          <p>Brand identities and social content made by designers who understand the brand, not generated from a prompt and a template library.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GRAPHIC DESIGN -->
+  <section id="design">
+    <div class="container reveal">
+      <div class="sec-head">
+        <div class="sec-num">03</div>
+        <h2 class="sec-title">Design, Made By Hand<span class="dot"></span></h2>
+      </div>
+      <div class="gd-wrap">
+        <div class="gd-compare">
+          <div class="gd-row">
+            <span class="gd-tag">AI</span>
+            <span class="txt">Generates a template. Fast, generic, forgettable.</span>
+          </div>
+          <div class="gd-row accent">
+            <span class="gd-tag hot">Us</span>
+            <span class="txt">Create a visual identity. Deliberate, brand-first, memorable.</span>
+          </div>
+          <div class="chip-list">
+            <span class="pill">Brand Identity</span>
+            <span class="pill">Social Creatives</span>
+            <span class="pill">Promotional Design</span>
+            <span class="pill">Posters</span>
+            <span class="pill">Digital Campaigns</span>
+            <span class="pill">Custom Graphics</span>
+            <span class="pill">Visual Storytelling</span>
+          </div>
+        </div>
+        <div class="prod-visual">
+          <p style="font-size:1rem;color:var(--on-surface-muted);line-height:1.8">Most brands on social media today look the same — because most of them were made the same way. We spend the time an algorithm won't: understanding what a brand actually stands for before we design a single pixel for it.</p>
+          <p class="badge-placeholder">Portfolio samples available on request — placeholder, no fabricated client work shown.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ECOSYSTEM -->
+  <section id="ecosystem">
+    <div class="container reveal">
+      <div class="sec-head">
+        <div class="sec-num">04</div>
+        <h2 class="sec-title">Our Ecosystem<span class="dot"></span></h2>
+      </div>
+      <div class="tree">
+        <div class="tree-root">
+          <h3>Samskrithi Developers</h3>
+          <p>Parent company — software &amp; design</p>
+        </div>
+        <div class="tree-line"></div>
+        <div class="tree-branches">
+          <div style="display:flex;flex-direction:column;align-items:center">
+            <div class="tree-branch-line"></div>
+            <a href="#vivakti" class="branch-card" style="text-decoration:none;color:inherit">
+              <div class="b-mark">V</div>
+              <h4>Vivakti</h4>
+              <p>An AI-powered operating system that takes real-world problems from first description to measured result.</p>
+            </a>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center">
+            <div class="tree-branch-line"></div>
+            <a href="#upasthiti" class="branch-card" style="text-decoration:none;color:inherit">
+              <div class="b-mark">U</div>
+              <h4>Upasthiti</h4>
+              <p>A simple attendance companion for college students — enter, track, and know your percentage.</p>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VIVAKTI -->
+  <section id="vivakti">
+    <div class="container reveal">
+      <div class="sec-head">
+        <div class="sec-num">05</div>
+        <h2 class="sec-title">Vivakti<span class="dot"></span></h2>
+      </div>
+
+      <div class="prod-hero">
+        <div class="prod-copy">
+          <span class="sec-kicker">Problem-Solving Operating System</span>
+          <p>Most people don't need another app to search through. They need to describe a problem in their own words and be handed a way through it. Vivakti reads the problem, works out why it's happening, builds a strategy around it, and stays with you through execution and results.</p>
+          <p>It isn't a chatbot that answers questions. It's a system that turns a problem into a plan — with objectives, cost estimates, timelines, and a way to track whether it actually worked.</p>
+        </div>
+        <div class="prod-visual">
+          <div class="flow-step hot"><div class="n">1</div><span class="t">"I have a problem."</span></div>
+          <div class="flow-connect"></div>
+          <div class="flow-step"><div class="n">2</div><span class="t">"Here's why it's happening."</span></div>
+          <div class="flow-connect"></div>
+          <div class="flow-step"><div class="n">3</div><span class="t">"Here's the strategy to solve it."</span></div>
+          <div class="flow-connect"></div>
+          <div class="flow-step"><div class="n">4</div><span class="t">"Here's how we execute it."</span></div>
+          <div class="flow-connect"></div>
+          <div class="flow-step hot"><div class="n">5</div><span class="t">"Here's the result — and what's next."</span></div>
+        </div>
+      </div>
+
+      <span class="sec-kicker" style="display:block;margin-bottom:1.5rem">The Full Journey</span>
+      <div class="workflow-grid">
+        <div class="wf-card"><div class="wf-num">01</div><h5>Describe</h5><p>Explain the problem in plain, natural language — no forms, no jargon.</p></div>
+        <div class="wf-card"><div class="wf-num">02</div><h5>Analyze</h5><p>Vivakti reads the situation and understands what's actually going on.</p></div>
+        <div class="wf-card"><div class="wf-num">03</div><h5>Root Cause</h5><p>Identifies the real source of the problem, not just its symptoms.</p></div>
+        <div class="wf-card"><div class="wf-num">04</div><h5>Strategy</h5><p>Builds a customized plan — objectives, cost estimates, timelines.</p></div>
+        <div class="wf-card"><div class="wf-num">05</div><h5>Execution</h5><p>Helps connect or set up what's needed, and assists as it happens.</p></div>
+        <div class="wf-card"><div class="wf-num">06</div><h5>Tracking</h5><p>Follows progress in real time as the plan plays out.</p></div>
+        <div class="wf-card"><div class="wf-num">07</div><h5>Results</h5><p>Measures the outcome against what was actually planned.</p></div>
+        <div class="wf-card final"><div class="wf-num">08</div><h5>Future Growth</h5><p>Suggests what to improve or tackle next, based on what happened.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- UPASTHITI -->
+  <section id="upasthiti">
+    <div class="container reveal">
+      <div class="sec-head">
+        <div class="sec-num">06</div>
+        <h2 class="sec-title">Upasthiti<span class="dot"></span></h2>
+      </div>
+
+      <div class="prod-hero rev">
+        <div class="prod-copy">
+          <span class="sec-kicker">Attendance, Without The Headache</span>
+          <p>Every college student does the same math in their head at some point in the semester: how many classes can I miss before it's a problem? Upasthiti answers that instantly. Enter your timetable, mark what you attended, and see exactly where you stand — subject by subject.</p>
+          <div class="prod-tagline">Enter. Track. Know Your Percentage.</div>
+        </div>
+        <div class="dash">
+          <div class="dash-top"><b>Overall Attendance</b><span class="dash-pct">82%</span></div>
+          <div class="bar-row"><span class="lbl">Maths</span><div class="bar-track"><div class="bar-fill" style="width:91%"></div></div></div>
+          <div class="bar-row"><span class="lbl">Physics</span><div class="bar-track"><div class="bar-fill" style="width:76%"></div></div></div>
+          <div class="bar-row"><span class="lbl">CS Lab</span><div class="bar-track"><div class="bar-fill" style="width:88%"></div></div></div>
+          <div class="bar-row"><span class="lbl">English</span><div class="bar-track"><div class="bar-fill" style="width:69%"></div></div></div>
+          <p class="badge-placeholder">Illustrative dashboard — sample data, not live figures.</p>
+        </div>
+      </div>
+
+      <span class="sec-kicker" style="display:block;margin-bottom:1.5rem">How It Works</span>
+      <div class="up-chain">
+        <div class="up-card"><div class="up-icon">📅</div><h5>Add Timetable</h5><p>Set up your weekly class schedule once.</p></div>
+        <div class="up-arrow">→</div>
+        <div class="up-card"><div class="up-icon">✓</div><h5>Mark Attendance</h5><p>Log each class as it happens.</p></div>
+        <div class="up-arrow">→</div>
+        <div class="up-card"><div class="up-icon">%</div><h5>Track Percentage</h5><p>See it calculated automatically.</p></div>
+        <div class="up-arrow">→</div>
+        <div class="up-card"><div class="up-icon">◔</div><h5>Understand It</h5><p>Know exactly where you stand, subject by subject.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY US -->
+  <section id="why">
+    <div class="container reveal">
+      <div class="sec-head">
+        <div class="sec-num">07</div>
+        <h2 class="sec-title">Why Samskrithi<span class="dot"></span></h2>
+      </div>
+      <div class="why-grid">
+        <div class="why-card"><div class="num">01</div><h5>Built On Real Problems</h5><p>Every product starts from something people actually struggle with, not a feature we thought would be interesting.</p></div>
+        <div class="why-card"><div class="num">02</div><h5>Software That Follows Through</h5><p>Vivakti doesn't stop at advice — it stays through execution, tracking, and results.</p></div>
+        <div class="why-card"><div class="num">03</div><h5>Design That's Actually Made</h5><p>No templates, no AI-generated filler — every design starts from the brand it's for.</p></div>
+        <div class="why-card"><div class="num">04</div><h5>Deliberately Simple</h5><p>Upasthiti proves that not every problem needs a complicated system to solve it.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="cta">
+    <div class="container reveal">
+      <div class="cta-box">
+        <h2>Have a problem worth solving?<span class="dot"></span></h2>
+        <p>Whether it's a system to build, an attendance headache to remove, or a brand that needs an identity — we'd like to hear about it.</p>
+        <div class="cta-actions">
+          <a href="mailto:hello@samskrithideveloper.com" class="btn btn-accent">Start A Conversation</a>
+          <a href="#ecosystem" class="btn">Back To The Ecosystem</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="logo">samskrithi<span class="dot"></span></div>
+        <p>A technology and creative company building practical digital products and original, human-made visual design.</p>
+      </div>
+      <div class="foot-col">
+        <h6>Products</h6>
+        <a href="#vivakti">Vivakti</a>
+        <a href="#upasthiti">Upasthiti</a>
+        <a href="#design">Graphic Design</a>
+      </div>
+      <div class="foot-col">
+        <h6>Company</h6>
+        <a href="#about">About</a>
+        <a href="#why">Why Us</a>
+        <a href="#cta">Contact</a>
+      </div>
+      <div class="foot-col">
+        <h6>Contact</h6>
+        <a href="mailto:hello@samskrithideveloper.com">hello@samskrithideveloper.com</a>
+        <span class="badge-placeholder">Placeholder — replace with real contact details</span>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Samskrithi Developers. All rights reserved.</span>
+      <span>Vivakti · Upasthiti</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// header scroll state
+const header = document.getElementById('siteHeader');
+window.addEventListener('scroll', () => {
+  header.classList.toggle('scrolled', window.scrollY > 20);
+});
+
+// mobile menu
+const menuBtn = document.getElementById('menuBtn');
+const panel = document.getElementById('mobilePanel');
+menuBtn.addEventListener('click', () => {
+  const open = panel.classList.toggle('open');
+  menuBtn.setAttribute('aria-expanded', open);
+});
+panel.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  panel.classList.remove('open');
+  menuBtn.setAttribute('aria-expanded', 'false');
+}));
+
+// scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
