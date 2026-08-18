@@ -1,547 +1,806 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Samskrithi Developers — Problems, Solved. Designs, Original.</title>
-<meta name="description" content="Samskrithi Developers builds Vivakti, a problem-solving operating system, Upasthiti, an attendance companion for students, and original human-made visual identities for brands."/>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Samskruthi Developers — Problems, Solved. Designs, Original.</title>
+<meta name="description" content="Samskruthi Developers builds technology that solves real-world problems and original, human-directed graphic design for brands. Makers of Vivakti and Upasthiti." />
+<meta name="theme-color" content="#f0f0f3" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600;700&display=swap" />
 <style>
-:root{
-  --surface:#f0f0f3;
-  --surface-bright:#f9f9f9;
-  --bg:#e8e8ec;
-  --on-surface:#1b1b1b;
-  --on-surface-muted:#5a5354;
-  --outline-variant:#cfc4c5;
-  --accent:#ff5722;
-  --accent-dark:#b02f00;
-  --white:#ffffff;
-  --shadow-dark:rgba(163,177,198,0.65);
-  --shadow-light:rgba(255,255,255,0.95);
-  --radius-sm:.5rem; --radius-md:1rem; --radius-lg:1.5rem; --radius-full:9999px;
-}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--on-surface);overflow-x:hidden;line-height:1.5}
-img,svg{display:block;max-width:100%}
-a{color:inherit}
-.container{max-width:1180px;margin:0 auto;padding:0 2rem}
-section{padding:6rem 0}
-h1,h2,h3,h4{font-family:'Anton',sans-serif;text-transform:uppercase;letter-spacing:.02em;line-height:1.05}
-.raised{box-shadow:-8px -8px 16px var(--shadow-light),8px 8px 16px var(--shadow-dark)}
-.raised-sm{box-shadow:-4px -4px 8px var(--shadow-light),4px 4px 8px var(--shadow-dark)}
-.inset{box-shadow:inset -6px -6px 12px var(--shadow-light),inset 6px 6px 12px var(--shadow-dark)}
-.dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px rgba(255,87,34,.5);margin-left:4px;position:relative;top:-.1em}
+  :root {
+    --radius-sm: 0.5rem;
+    --radius-md: 1rem;
+    --radius-lg: 1.5rem;
+    --radius-xl: 2rem;
 
-/* ---------- NAV ---------- */
-header{position:fixed;top:0;left:0;right:0;z-index:200;padding:1.1rem 0;transition:box-shadow .3s,background .3s}
-header.scrolled{background:rgba(232,232,236,.85);backdrop-filter:blur(10px);box-shadow:0 4px 24px rgba(163,177,198,.35)}
-.nav-inner{display:flex;align-items:center;justify-content:space-between}
-.logo{font-family:'Anton',sans-serif;font-size:1.15rem;text-transform:lowercase;letter-spacing:.03em;display:flex;align-items:baseline}
-.logo b{font-weight:400}
-nav.links{display:flex;gap:2rem}
-nav.links a{font-size:.78rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--on-surface-muted);text-decoration:none;transition:color .2s}
-nav.links a:hover{color:var(--on-surface)}
-.nav-cta{display:flex;align-items:center;gap:1rem}
-.menu-btn{display:none;width:44px;height:44px;border-radius:var(--radius-sm);border:none;background:var(--surface);cursor:pointer;box-shadow:-4px -4px 8px var(--shadow-light),4px 4px 8px var(--shadow-dark)}
-.menu-btn span{display:block;width:18px;height:2px;background:var(--on-surface);margin:4px auto;border-radius:2px}
-.mobile-panel{display:none;position:fixed;inset:0;z-index:190;background:var(--bg);padding:6rem 2rem 2rem;flex-direction:column;gap:1.5rem}
-.mobile-panel.open{display:flex}
-.mobile-panel a{font-family:'Anton',sans-serif;font-size:1.6rem;text-transform:uppercase;text-decoration:none;color:var(--on-surface)}
+    --background: oklch(0.9321 0.0054 286.3);
+    --surface: oklch(0.956 0.004 286.32);
+    --surface-bright: oklch(0.9821 0 89.88);
+    --foreground: oklch(0.2221 0 89.88);
+    --muted-foreground: oklch(0.3977 0.0096 7.69);
+    --outline: oklch(0.8296 0.0124 11.05);
+    --accent: oklch(0.6792 0.2128 36.53);
+    --accent-dark: oklch(0.5022 0.1718 36.04);
+    --accent-foreground: oklch(1 0 89.88);
+    --ink: oklch(0.2221 0 89.88);
+    --ink-foreground: oklch(0.9821 0 89.88);
+    --shadow-light: rgba(255, 255, 255, 0.95);
+    --shadow-dark: rgba(163, 177, 198, 0.65);
 
-/* ---------- BUTTONS ---------- */
-.btn{display:inline-flex;align-items:center;gap:.5rem;font-size:.8rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.9rem 1.9rem;border-radius:var(--radius-sm);border:none;cursor:pointer;background:var(--surface);color:var(--on-surface);box-shadow:-6px -6px 12px var(--shadow-light),6px 6px 12px var(--shadow-dark);transition:box-shadow .2s,transform .2s;text-decoration:none}
-.btn:hover{box-shadow:-8px -8px 16px var(--shadow-light),8px 8px 16px var(--shadow-dark);transform:translateY(-1px)}
-.btn:active{box-shadow:inset -4px -4px 8px var(--shadow-light),inset 4px 4px 8px var(--shadow-dark);transform:translateY(0)}
-.btn-accent{background:var(--accent);color:#fff;box-shadow:-6px -6px 12px var(--shadow-light),6px 6px 12px rgba(176,47,0,.45)}
-.btn-accent:hover{box-shadow:-8px -8px 16px var(--shadow-light),8px 8px 16px rgba(176,47,0,.5)}
+    --font-display: "Anton", "Arial Narrow", sans-serif;
+    --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  }
 
-/* ---------- HERO ---------- */
-#hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding-top:8rem}
-.eyebrow{font-size:.75rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:1.5rem;opacity:0;animation:fadeUp .7s .1s ease forwards}
-.hero-title{font-size:clamp(2.8rem,7.5vw,6.2rem);margin-bottom:1.8rem;opacity:0;animation:fadeUp .8s .2s ease forwards}
-.hero-title .accent-line{color:var(--accent)}
-.hero-sub{font-size:1.15rem;line-height:1.75;color:var(--on-surface-muted);max-width:620px;margin-bottom:2.75rem;opacity:0;animation:fadeUp .8s .35s ease forwards}
-.hero-actions{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:4rem;opacity:0;animation:fadeUp .8s .5s ease forwards}
-.hero-branches{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;max-width:680px;opacity:0;animation:fadeUp .8s .65s ease forwards}
-.branch-chip{display:flex;align-items:center;gap:.9rem;padding:1.1rem 1.3rem;border-radius:var(--radius-md);background:var(--surface);box-shadow:-6px -6px 12px var(--shadow-light),6px 6px 12px var(--shadow-dark)}
-.branch-chip .mark{width:40px;height:40px;border-radius:var(--radius-sm);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:'Anton',sans-serif;font-size:.95rem;background:var(--surface);box-shadow:inset -3px -3px 6px var(--shadow-light),inset 3px 3px 6px var(--shadow-dark)}
-.branch-chip .txt b{display:block;font-family:'Anton',sans-serif;font-size:.9rem;text-transform:uppercase;letter-spacing:.04em}
-.branch-chip .txt span{font-size:.75rem;color:var(--on-surface-muted)}
-@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+  * { box-sizing: border-box; border-color: var(--outline); }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+  ul, ol, dl, dd { margin: 0; padding: 0; list-style: none; }
+  button { font: inherit; border: none; background: none; color: inherit; }
+  ::selection { background: var(--accent); color: var(--accent-foreground); }
 
-/* ---------- SECTION HEADERS ---------- */
-.sec-head{display:flex;align-items:flex-end;gap:1rem;margin-bottom:3rem;padding-bottom:1.4rem;border-bottom:1px solid var(--outline-variant)}
-.sec-num{font-family:'Anton',sans-serif;font-size:3rem;color:var(--outline-variant);line-height:1}
-.sec-title{font-size:clamp(1.7rem,3.2vw,2.4rem)}
-.sec-kicker{font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:.8rem;display:block}
-.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
-.reveal.visible{opacity:1;transform:translateY(0)}
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+  }
 
-/* ---------- WHAT WE DO ---------- */
-.principles{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
-.p-card{border-radius:var(--radius-lg);padding:2.2rem;background:var(--surface);box-shadow:-8px -8px 16px var(--shadow-light),8px 8px 16px var(--shadow-dark);transition:box-shadow .3s,transform .3s}
-.p-card:hover{box-shadow:-12px -12px 22px var(--shadow-light),12px 12px 22px var(--shadow-dark);transform:translateY(-3px)}
-.p-icon{width:52px;height:52px;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-size:1.3rem;background:var(--surface);box-shadow:inset -3px -3px 6px var(--shadow-light),inset 3px 3px 6px var(--shadow-dark);margin-bottom:1.3rem}
-.p-card h3{font-size:1.15rem;margin-bottom:.7rem}
-.p-card p{font-size:.9rem;color:var(--on-surface-muted);line-height:1.7}
+  .wrap { max-width: 72rem; margin-inline: auto; padding-inline: 1.25rem; }
+  @media (min-width: 768px) { .wrap { padding-inline: 2rem; } }
 
-/* ---------- GRAPHIC DESIGN ---------- */
-.gd-wrap{display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:center}
-.gd-compare{display:flex;flex-direction:column;gap:1rem}
-.gd-row{display:flex;align-items:center;gap:1rem;padding:1.1rem 1.4rem;border-radius:var(--radius-md);background:var(--surface);box-shadow:-4px -4px 8px var(--shadow-light),4px 4px 8px var(--shadow-dark)}
-.gd-row.accent{box-shadow:inset -3px -3px 6px var(--shadow-light),inset 3px 3px 6px var(--shadow-dark)}
-.gd-tag{font-family:'Anton',sans-serif;font-size:.7rem;letter-spacing:.08em;padding:.4rem .8rem;border-radius:var(--radius-full);background:var(--surface);box-shadow:inset -2px -2px 4px var(--shadow-light),inset 2px 2px 4px var(--shadow-dark);flex-shrink:0}
-.gd-tag.hot{color:var(--accent)}
-.gd-row span.txt{font-size:.88rem;color:var(--on-surface-muted)}
-.chip-list{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.8rem}
-.pill{font-size:.72rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:.5rem 1rem;border-radius:var(--radius-full);background:var(--surface);box-shadow:-3px -3px 6px var(--shadow-light),3px 3px 6px var(--shadow-dark)}
+  .neu-raised { background: var(--surface); box-shadow: -8px -8px 16px var(--shadow-light), 8px 8px 16px var(--shadow-dark); }
+  .neu-flat { background: var(--surface); box-shadow: -4px -4px 8px var(--shadow-light), 4px 4px 8px var(--shadow-dark); }
+  .neu-inset { background: var(--surface); box-shadow: inset -6px -6px 12px var(--shadow-light), inset 6px 6px 12px var(--shadow-dark); }
+  .neu-inset-sm { background: var(--surface); box-shadow: inset -3px -3px 6px var(--shadow-light), inset 3px 3px 6px var(--shadow-dark); }
+  .neu-lift { transition: box-shadow 0.35s ease, transform 0.35s ease; }
+  .neu-lift:hover { transform: translateY(-4px); box-shadow: -12px -12px 22px var(--shadow-light), 12px 12px 22px var(--shadow-dark); }
 
-/* ---------- ECOSYSTEM TREE ---------- */
-.tree{display:flex;flex-direction:column;align-items:center;gap:0}
-.tree-root{padding:1.6rem 2.6rem;border-radius:var(--radius-lg);background:var(--surface);box-shadow:-8px -8px 16px var(--shadow-light),8px 8px 16px var(--shadow-dark);text-align:center}
-.tree-root h3{font-size:1.4rem}
-.tree-root p{font-size:.8rem;color:var(--on-surface-muted);margin-top:.4rem}
-.tree-line{width:2px;height:48px;background:var(--outline-variant)}
-.tree-branches{display:flex;gap:4rem;position:relative}
-.tree-branches::before{content:'';position:absolute;top:-2px;left:50%;transform:translateX(-50%);width:calc(100% - 2px);height:2px;background:var(--outline-variant)}
-.tree-branch-line{width:2px;height:40px;background:var(--outline-variant);margin:0 auto}
-.branch-card{width:280px;border-radius:var(--radius-lg);padding:1.8rem;background:var(--surface);box-shadow:-6px -6px 12px var(--shadow-light),6px 6px 12px var(--shadow-dark);text-align:center}
-.branch-card .b-mark{width:44px;height:44px;margin:0 auto 1rem;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-family:'Anton',sans-serif;background:var(--surface);box-shadow:inset -3px -3px 6px var(--shadow-light),inset 3px 3px 6px var(--shadow-dark)}
-.branch-card h4{font-size:1.1rem;margin-bottom:.6rem}
-.branch-card p{font-size:.82rem;color:var(--on-surface-muted);line-height:1.6}
+  .display { font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.02em; line-height: 1.05; font-weight: 400; }
+  .eyebrow { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; }
 
-/* ---------- PRODUCT INTRO BLOCKS ---------- */
-.prod-hero{display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:center;margin-bottom:4.5rem}
-.prod-hero.rev .prod-copy{order:2}
-.prod-word{font-family:'Anton',sans-serif;font-size:clamp(2.4rem,5vw,3.6rem);margin-bottom:1.3rem}
-.prod-copy p{font-size:1.02rem;color:var(--on-surface-muted);line-height:1.8;margin-bottom:1.2rem}
-.prod-tagline{border-radius:var(--radius-md);padding:1.5rem;background:var(--surface);box-shadow:inset -4px -4px 8px var(--shadow-light),inset 4px 4px 8px var(--shadow-dark);font-family:'Anton',sans-serif;font-size:1rem;text-transform:uppercase;letter-spacing:.03em;text-align:center;color:var(--accent)}
-.prod-visual{border-radius:var(--radius-lg);padding:2.5rem;background:var(--surface);box-shadow:-8px -8px 16px var(--shadow-light),8px 8px 16px var(--shadow-dark);min-height:340px;display:flex;flex-direction:column;justify-content:center;gap:1rem}
+  .btn-base { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.85rem 1.75rem; border-radius: var(--radius-sm); cursor: pointer; transition: box-shadow 0.25s ease, transform 0.25s ease, background 0.25s ease, color 0.25s ease; }
+  .btn-neu { background: var(--surface); color: var(--foreground); box-shadow: -6px -6px 12px var(--shadow-light), 6px 6px 12px var(--shadow-dark); }
+  .btn-neu:hover { color: var(--accent); }
+  .btn-neu:active { box-shadow: inset -4px -4px 8px var(--shadow-light), inset 4px 4px 8px var(--shadow-dark); }
+  .btn-accent { background: var(--accent); color: var(--accent-foreground); box-shadow: -4px -4px 10px var(--shadow-light), 6px 6px 14px rgba(176, 47, 0, 0.35); }
+  .btn-accent:hover { background: var(--accent-dark); transform: translateY(-2px); }
 
-/* Vivakti flow (vertical chain) */
-.flow-step{display:flex;align-items:center;gap:1rem;padding:.85rem 1.1rem;border-radius:var(--radius-md);background:var(--surface);box-shadow:-4px -4px 8px var(--shadow-light),4px 4px 8px var(--shadow-dark)}
-.flow-step .n{font-family:'Anton',sans-serif;font-size:.85rem;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:var(--surface);box-shadow:inset -2px -2px 4px var(--shadow-light),inset 2px 2px 4px var(--shadow-dark)}
-.flow-step.hot .n{color:var(--accent)}
-.flow-step span.t{font-size:.85rem;font-weight:600}
-.flow-connect{width:2px;height:14px;background:var(--outline-variant);margin-left:2.4rem}
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.16,1,0.3,1); }
+  .reveal-in { opacity: 1; transform: translateY(0); }
 
-/* Full workflow grid (8 stage) */
-.workflow-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;position:relative}
-.wf-card{border-radius:var(--radius-lg);padding:1.6rem 1.3rem;background:var(--surface);box-shadow:-6px -6px 12px var(--shadow-light),6px 6px 12px var(--shadow-dark);transition:box-shadow .3s,transform .3s;position:relative}
-.wf-card:hover{box-shadow:-10px -10px 18px var(--shadow-light),10px 10px 18px var(--shadow-dark);transform:translateY(-4px)}
-.wf-num{font-family:'Anton',sans-serif;font-size:.75rem;color:var(--outline-variant);margin-bottom:.7rem}
-.wf-card h5{font-size:.95rem;text-transform:uppercase;font-family:'Anton',sans-serif;letter-spacing:.02em;margin-bottom:.5rem}
-.wf-card p{font-size:.78rem;color:var(--on-surface-muted);line-height:1.55}
-.wf-card.final{box-shadow:-6px -6px 12px var(--shadow-light),6px 6px 12px var(--shadow-dark),0 0 0 2px rgba(255,87,34,.18) inset}
-.wf-card.final .wf-num{color:var(--accent)}
+  .dot { display: inline-block; width: 8px; height: 8px; flex-shrink: 0; border-radius: 999px; background: var(--accent); box-shadow: 0 0 12px rgba(255,87,34,0.55); position: relative; top: -0.06em; }
+  .dot-sm { width: 6px; height: 6px; }
+  .dot-lg { width: 10px; height: 10px; }
+  .dot-xs { width: 7px; height: 7px; }
 
-/* Upasthiti 4-step arrow chain */
-.up-chain{display:flex;align-items:stretch;gap:0;flex-wrap:wrap}
-.up-card{flex:1;min-width:180px;border-radius:var(--radius-lg);padding:1.8rem 1.4rem;background:var(--surface);box-shadow:-6px -6px 12px var(--shadow-light),6px 6px 12px var(--shadow-dark);text-align:center}
-.up-card .up-icon{width:46px;height:46px;margin:0 auto 1rem;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.1rem;background:var(--surface);box-shadow:inset -3px -3px 6px var(--shadow-light),inset 3px 3px 6px var(--shadow-dark)}
-.up-card h5{font-size:.92rem;margin-bottom:.5rem}
-.up-card p{font-size:.78rem;color:var(--on-surface-muted)}
-.up-arrow{display:flex;align-items:center;justify-content:center;width:44px;font-size:1.3rem;color:var(--accent);flex-shrink:0}
+  .wordmark { font-family: var(--font-display); display: inline-flex; align-items: baseline; gap: 2px; text-transform: lowercase; }
+  .wordmark span.label { text-transform: none; }
 
-/* Upasthiti mini dashboard mock */
-.dash{border-radius:var(--radius-lg);padding:1.6rem;background:var(--surface);box-shadow:-8px -8px 16px var(--shadow-light),8px 8px 16px var(--shadow-dark)}
-.dash-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.4rem}
-.dash-top b{font-family:'Anton',sans-serif;font-size:.85rem;text-transform:uppercase}
-.dash-pct{font-family:'Anton',sans-serif;font-size:2.6rem;color:var(--accent)}
-.bar-row{display:flex;align-items:center;gap:.8rem;margin-bottom:.9rem}
-.bar-row .lbl{font-size:.72rem;font-weight:700;width:76px;flex-shrink:0;color:var(--on-surface-muted)}
-.bar-track{flex:1;height:10px;border-radius:var(--radius-full);background:var(--surface);box-shadow:inset -2px -2px 4px var(--shadow-light),inset 2px 2px 4px var(--shadow-dark);overflow:hidden}
-.bar-fill{height:100%;border-radius:var(--radius-full);background:var(--accent)}
+  svg.icon { width: 1em; height: 1em; stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
 
-/* ---------- WHY US ---------- */
-.why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.4rem}
-.why-card{border-radius:var(--radius-md);padding:1.7rem;background:var(--surface);box-shadow:-5px -5px 10px var(--shadow-light),5px 5px 10px var(--shadow-dark)}
-.why-card .num{font-family:'Anton',sans-serif;color:var(--accent);font-size:1.4rem;margin-bottom:.6rem}
-.why-card h5{font-size:.92rem;margin-bottom:.5rem;text-transform:uppercase;font-family:'Anton',sans-serif}
-.why-card p{font-size:.8rem;color:var(--on-surface-muted);line-height:1.6}
+  /* ---------- Navbar ---------- */
+  header.site-header { position: sticky; top: 0; z-index: 50; border-bottom: 1px solid color-mix(in oklch, var(--outline) 70%, transparent); background: color-mix(in oklch, var(--background) 85%, transparent); backdrop-filter: blur(10px); }
+  .nav-inner { max-width: 72rem; margin-inline: auto; padding: 1rem 1.25rem; display: grid; grid-template-columns: minmax(0,1fr) auto; align-items: center; gap: 1rem; }
+  @media (min-width: 768px) { .nav-inner { padding: 1rem 2rem; } }
+  .brand { min-width: 0; display: flex; align-items: baseline; gap: 0.5rem; }
+  .brand .wordmark { font-size: 1.125rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  @media (min-width: 768px) { .brand .wordmark { font-size: 1.25rem; } }
+  .brand .sub { display: none; color: var(--muted-foreground); }
+  @media (min-width: 640px) { .brand .sub { display: inline; } }
 
-/* ---------- CTA ---------- */
-#cta{padding:5rem 0}
-.cta-box{border-radius:var(--radius-lg);padding:4rem 3rem;background:var(--surface);box-shadow:-10px -10px 20px var(--shadow-light),10px 10px 20px var(--shadow-dark);text-align:center}
-.cta-box h2{font-size:clamp(2rem,5vw,3.2rem);margin-bottom:1.2rem}
-.cta-box p{color:var(--on-surface-muted);max-width:520px;margin:0 auto 2.2rem;font-size:1rem}
-.cta-actions{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+  nav.main-nav { display: none; align-items: center; gap: 0.25rem; }
+  @media (min-width: 1024px) { nav.main-nav { display: flex; } }
+  nav.main-nav a.section-link { border-radius: var(--radius-sm); padding: 0.5rem 0.75rem; color: var(--muted-foreground); transition: background 0.2s, color 0.2s; }
+  nav.main-nav a.section-link:hover { background: rgba(0,0,0,0.04); color: var(--foreground); }
+  nav.main-nav .sep { margin-inline: 0.5rem; width: 1px; height: 1.25rem; background: var(--outline); }
+  nav.main-nav a.product-link { border-radius: var(--radius-sm); padding: 0.5rem 0.75rem; color: var(--muted-foreground); transition: color 0.2s; }
+  nav.main-nav a.product-link:hover { color: var(--accent); }
+  nav.main-nav a.product-link.active { color: var(--foreground); }
 
-/* ---------- FOOTER ---------- */
-footer{padding:3.5rem 0 2.5rem;border-top:1px solid var(--outline-variant)}
-.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:2.5rem;margin-bottom:2.5rem}
-.foot-brand .logo{margin-bottom:.9rem}
-.foot-brand p{font-size:.85rem;color:var(--on-surface-muted);max-width:280px;line-height:1.6}
-.foot-col h6{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--outline-variant);margin-bottom:1rem}
-.foot-col a{display:block;font-size:.85rem;color:var(--on-surface-muted);text-decoration:none;margin-bottom:.7rem;transition:color .2s}
-.foot-col a:hover{color:var(--on-surface)}
-.foot-bottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;font-size:.75rem;color:var(--on-surface-muted);padding-top:1.8rem;border-top:1px solid var(--outline-variant)}
+  .menu-btn { flex-shrink: 0; padding: 0.5rem 0.75rem; }
+  @media (min-width: 1024px) { .menu-btn { display: none; } }
 
-.badge-placeholder{font-size:.68rem;color:var(--outline-variant);font-style:italic}
+  nav.mobile-nav { display: none; border-top: 1px solid var(--outline); background: var(--surface); padding: 0.75rem 1.25rem 1.5rem; }
+  @media (min-width: 1024px) { nav.mobile-nav { display: none !important; } }
+  nav.mobile-nav.open { display: block; }
+  nav.mobile-nav ul { display: flex; flex-direction: column; gap: 0.25rem; }
+  nav.mobile-nav a { display: block; border-radius: var(--radius-sm); padding: 0.75rem; color: var(--muted-foreground); }
+  nav.mobile-nav .products-label { margin-top: 1rem; padding-inline: 0.75rem; color: var(--outline); }
+  nav.mobile-nav .products-list { margin-top: 0.25rem; }
+  nav.mobile-nav .products-list a { color: var(--foreground); }
 
-/* ---------- RESPONSIVE ---------- */
-@media(max-width:980px){
-  .principles{grid-template-columns:1fr 1fr}
-  .workflow-grid{grid-template-columns:1fr 1fr}
-  .why-grid{grid-template-columns:1fr 1fr}
-  .gd-wrap,.prod-hero{grid-template-columns:1fr;gap:2.2rem}
-  .prod-hero.rev .prod-copy{order:0}
-  .foot-grid{grid-template-columns:1fr 1fr}
-  .tree-branches{flex-direction:column;align-items:center;gap:2rem}
-  .tree-branches::before{display:none}
-  .branch-card{width:100%;max-width:320px}
-}
-@media(max-width:640px){
-  nav.links,.nav-cta .btn{display:none}
-  .menu-btn{display:block}
-  .principles{grid-template-columns:1fr}
-  .workflow-grid{grid-template-columns:1fr 1fr}
-  .why-grid{grid-template-columns:1fr}
-  .foot-grid{grid-template-columns:1fr 1fr}
-  .up-chain{flex-direction:column}
-  .up-arrow{transform:rotate(90deg);width:100%;padding:.3rem 0}
-  section{padding:4rem 0}
-  .container{padding:0 1.3rem}
-  .hero-branches{grid-template-columns:1fr}
-}
-@media(prefers-reduced-motion:reduce){
-  *{animation-duration:.001ms!important;transition-duration:.001ms!important}
-}
+  /* ---------- Hero ---------- */
+  .hero { min-height: 80vh; display: flex; flex-direction: column; justify-content: center; padding-block: 5rem; }
+  @media (min-width: 768px) { .hero { padding-block: 7rem; } }
+  .hero .eyebrow.tag { margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; color: var(--accent); }
+  .hero h1 { font-size: clamp(2.6rem, 10vw, 7.5rem); margin: 0; }
+  .hero h1 span { display: block; opacity: 0; animation: fadeUp 0.7s ease forwards; }
+  .hero h1 span:nth-child(2) { animation-delay: 0.1s; }
+  .hero h1 span:nth-child(3) { animation-delay: 0.2s; color: var(--accent); }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  .hero p.lede { margin-top: 2rem; max-width: 36rem; color: var(--muted-foreground); font-size: 1rem; line-height: 1.7; }
+  @media (min-width: 768px) { .hero p.lede { font-size: 1.125rem; } }
+  .hero .cta-row { margin-top: 2.5rem; display: flex; flex-wrap: wrap; gap: 1rem; }
+  .stat-grid { margin-top: 4rem; display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; border-top: 1px solid var(--outline); padding-top: 2rem; }
+  @media (min-width: 640px) { .stat-grid { grid-template-columns: repeat(4, 1fr); } }
+  .stat-grid dt { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--outline); }
+  .stat-grid dd { margin: 0.25rem 0 0; font-size: 0.875rem; font-weight: 600; }
+
+  /* ---------- Section header ---------- */
+  .section-header { margin-bottom: 2.5rem; }
+  @media (min-width: 768px) { .section-header { margin-bottom: 3.5rem; } }
+  .section-header .head-row { display: flex; align-items: flex-end; gap: 0.75rem; border-bottom: 1px solid var(--outline); padding-bottom: 1.25rem; }
+  @media (min-width: 768px) { .section-header .head-row { gap: 1.25rem; } }
+  .section-header .num { font-size: 2.25rem; flex-shrink: 0; color: var(--outline); }
+  @media (min-width: 768px) { .section-header .num { font-size: 3.75rem; } }
+  .section-header h2 { margin: 0; min-width: 0; font-size: 1.5rem; }
+  @media (min-width: 768px) { .section-header h2 { font-size: 2.25rem; } }
+  @media (min-width: 1024px) { .section-header h2 { font-size: 2.6rem; } }
+  .section-header .kicker { margin-top: 1.25rem; max-width: 42rem; font-size: 0.95rem; line-height: 1.7; color: var(--muted-foreground); }
+
+  section.page-section { max-width: 72rem; margin-inline: auto; padding: 4rem 1.25rem; scroll-margin-top: 6rem; }
+  @media (min-width: 768px) { section.page-section { padding: 6rem 2rem; } }
+
+  /* ---------- About ---------- */
+  .about-grid { display: grid; gap: 2.5rem; }
+  @media (min-width: 1024px) { .about-grid { grid-template-columns: 1.15fr 1fr; gap: 4rem; } }
+  .about-grid .lead { font-size: 1.5rem; margin: 0; }
+  @media (min-width: 768px) { .about-grid .lead { font-size: 2rem; } }
+  .about-grid .body-text { margin-top: 1.5rem; display: flex; flex-direction: column; gap: 1rem; font-size: 0.95rem; line-height: 1.7; color: var(--muted-foreground); }
+  .principles { display: grid; gap: 1.25rem; }
+  @media (min-width: 640px) { .principles { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 1024px) { .principles { grid-template-columns: 1fr; } }
+  .principle-card { height: 100%; display: flex; flex-direction: column; gap: 1rem; border-radius: var(--radius-lg); padding: 1.5rem; }
+  .icon-badge { display: grid; place-items: center; width: 2.75rem; height: 2.75rem; flex-shrink: 0; border-radius: var(--radius-sm); }
+  .icon-badge svg { color: var(--accent); width: 1.1rem; height: 1.1rem; }
+  .principle-card h3 { margin: 0; font-size: 1.125rem; }
+  .principle-card p { margin: 0; font-size: 0.875rem; line-height: 1.7; color: var(--muted-foreground); }
+
+  /* ---------- Services ---------- */
+  .problem-box { border-radius: var(--radius-lg); padding: 1.75rem; }
+  @media (min-width: 768px) { .problem-box { padding: 3rem; } }
+  .problem-box .eyebrow { margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.5rem; color: var(--accent); }
+  .problem-box p.big { margin: 0; font-size: 1.25rem; }
+  @media (min-width: 768px) { .problem-box p.big { font-size: 1.9rem; } }
+  .services-grid { margin-top: 3rem; display: grid; gap: 2.5rem; }
+  @media (min-width: 1024px) { .services-grid { grid-template-columns: 1fr 1fr; gap: 4rem; } }
+  .services-grid .copy { display: flex; flex-direction: column; gap: 1rem; font-size: 0.95rem; line-height: 1.7; color: var(--muted-foreground); }
+  .services-grid .copy .strong { font-weight: 600; color: var(--foreground); }
+  .mock-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+  @media (min-width: 640px) { .mock-grid { grid-template-columns: repeat(3, 1fr); gap: 1.25rem; } }
+  .mock-grid > div:first-child { grid-column: span 2; }
+  @media (min-width: 640px) { .mock-grid > div:first-child { grid-column: span 1; } }
+  .mock-card { height: 100%; display: flex; flex-direction: column; overflow: hidden; border-radius: var(--radius-md); }
+  .mock-visual { position: relative; aspect-ratio: 4 / 5; background: var(--ink); }
+  .mock-visual .accent-bar { position: absolute; left: 1.25rem; right: 1.25rem; bottom: 1.25rem; height: 4px; border-radius: 999px; background: var(--accent); }
+  .mock-visual .accent-block { position: absolute; left: 1.25rem; right: 1.25rem; bottom: 2.25rem; height: 1.5rem; border-radius: 2px; background: rgba(255,255,255,0.15); }
+  .mock-visual .accent-dot2 { position: absolute; left: 1.25rem; top: 1.25rem; width: 0.75rem; height: 0.75rem; border-radius: 999px; background: var(--accent); }
+  .mock-card figcaption { padding: 1rem; }
+  .mock-card figcaption .tag { color: var(--outline); }
+  .mock-card figcaption .title { margin: 0.25rem 0 0; font-size: 0.875rem; font-weight: 600; line-height: 1.3; }
+  .mock-card figcaption .ratio { margin: 0.25rem 0 0; font-family: monospace; font-size: 0.7rem; color: var(--muted-foreground); }
+  .deliverables { margin-top: 3rem; }
+  .deliverables .label { color: var(--outline); margin-bottom: 1.25rem; }
+  .deliverables ul { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+  .deliverables li { display: flex; align-items: center; gap: 0.5rem; border-radius: 999px; padding: 0.5rem 1rem; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.02em; }
+
+  /* ---------- Products ---------- */
+  .products-grid { display: grid; gap: 1.5rem; }
+  @media (min-width: 1024px) { .products-grid { grid-template-columns: 1fr 1fr; gap: 2rem; } }
+  .product-card { height: 100%; display: flex; flex-direction: column; gap: 1.5rem; border-radius: var(--radius-lg); padding: 1.75rem; }
+  @media (min-width: 768px) { .product-card { padding: 2.25rem; } }
+  .product-card .top-row { display: grid; grid-template-columns: minmax(0,1fr) auto; align-items: flex-start; gap: 1rem; }
+  .product-card .top-row .num { display: block; font-size: 1.875rem; color: var(--outline); }
+  .product-card .top-row h3 { margin: 0.5rem 0 0; font-size: 1.5rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  @media (min-width: 768px) { .product-card .top-row h3 { font-size: 1.875rem; } }
+  .product-card .top-row .type { margin-top: 0.5rem; display: block; color: var(--accent); }
+  .product-card .badge { display: grid; place-items: center; width: 3rem; height: 3rem; flex-shrink: 0; border-radius: var(--radius-sm); }
+  .product-card .badge svg { color: var(--accent); width: 1.25rem; height: 1.25rem; }
+  .product-card .tagline { margin: 0; font-size: 1rem; font-weight: 600; line-height: 1.4; }
+  .product-card .desc { margin: 0; font-size: 0.875rem; line-height: 1.7; color: var(--muted-foreground); }
+  .product-card .btn-base { margin-top: auto; align-self: flex-start; }
+
+  /* ---------- Contact ---------- */
+  .contact-box { border-radius: var(--radius-lg); padding: 1.75rem; }
+  @media (min-width: 768px) { .contact-box { padding: 3rem; } }
+  .contact-grid { display: grid; gap: 2rem; }
+  @media (min-width: 1024px) { .contact-grid { grid-template-columns: 1.2fr auto; align-items: center; } }
+  .contact-grid .big { margin: 0; font-size: 1.5rem; }
+  @media (min-width: 768px) { .contact-grid .big { font-size: 2.2rem; } }
+  .contact-grid .sub { margin-top: 1rem; max-width: 36rem; font-size: 0.95rem; line-height: 1.7; color: var(--muted-foreground); }
+  .contact-box .email-line { margin-top: 2rem; border-top: 1px solid var(--outline); padding-top: 1.5rem; font-family: monospace; font-size: 0.875rem; word-break: break-all; color: var(--muted-foreground); }
+
+  /* ---------- Product pages ---------- */
+  .product-hero { padding-top: 2.5rem; padding-bottom: 3rem; }
+  @media (min-width: 768px) { .product-hero { padding-top: 4rem; padding-bottom: 5rem; } }
+  .back-link { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--muted-foreground); }
+  .back-link:hover { color: var(--accent); }
+  .back-link svg { width: 0.875rem; height: 0.875rem; }
+  .product-hero .eyebrow.tag { margin-top: 2.5rem; display: flex; align-items: center; gap: 0.5rem; color: var(--accent); }
+  .product-hero h1 { margin: 1.25rem 0 0; font-size: clamp(2.8rem, 11vw, 7rem); }
+  .product-hero .headline { margin-top: 1rem; max-width: 42rem; font-size: 1.25rem; color: var(--accent); }
+  @media (min-width: 768px) { .product-hero .headline { font-size: 1.8rem; } }
+  .product-hero .intro { margin-top: 1.5rem; max-width: 42rem; font-size: 1rem; line-height: 1.7; color: var(--muted-foreground); }
+  .product-hero dl.meta { margin-top: 3.5rem; display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; border-top: 1px solid var(--outline); padding-top: 2rem; }
+  @media (min-width: 640px) { .product-hero dl.meta { grid-template-columns: repeat(3, 1fr); } }
+  .product-hero dl.meta dt { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--outline); }
+  .product-hero dl.meta dd { margin: 0.25rem 0 0; font-size: 0.875rem; font-weight: 600; }
+
+  .flow-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; }
+  .flow-row li { display: flex; align-items: center; gap: 0.75rem; }
+  .flow-row .pill { border-radius: 999px; padding: 0.5rem 1rem; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; }
+
+  .timeline { position: relative; display: flex; flex-direction: column; gap: 1.25rem; }
+  .timeline .rail { position: absolute; left: 1.5rem; top: 1.5rem; bottom: 1.5rem; width: 1px; background: var(--outline); display: none; }
+  @media (min-width: 768px) { .timeline .rail { display: block; } }
+  .timeline-item { position: relative; }
+  .timeline-item .grid2 { display: grid; gap: 1rem; }
+  @media (min-width: 768px) { .timeline-item .grid2 { grid-template-columns: 3rem minmax(0,1fr); gap: 1.5rem; } }
+  .timeline-item .num-badge { display: none; justify-content: center; }
+  @media (min-width: 768px) { .timeline-item .num-badge { display: flex; } }
+  .timeline-item .num-badge span { position: relative; z-index: 1; display: grid; place-items: center; width: 3rem; height: 3rem; border-radius: 999px; font-family: monospace; font-size: 0.75rem; font-weight: 700; color: var(--accent); }
+  .timeline-item .card { border-radius: var(--radius-lg); padding: 1.5rem; }
+  @media (min-width: 768px) { .timeline-item .card { padding: 1.75rem; } }
+  .timeline-item .num-mobile { display: block; font-size: 0.875rem; color: var(--outline); }
+  @media (min-width: 768px) { .timeline-item .num-mobile { display: none; } }
+  .timeline-item h3 { margin: 0.25rem 0 0; font-size: 1.125rem; }
+  @media (min-width: 768px) { .timeline-item h3 { font-size: 1.25rem; } }
+  .timeline-item p { margin: 0.75rem 0 0; font-size: 0.875rem; line-height: 1.7; color: var(--muted-foreground); }
+  .timeline-item .bullets { margin-top: 1.25rem; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .timeline-item .bullets li { border-radius: 999px; padding: 0.375rem 0.75rem; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.02em; color: var(--muted-foreground); }
+
+  .simple-words { border-radius: var(--radius-lg); padding: 1.75rem; }
+  @media (min-width: 768px) { .simple-words { padding: 3.5rem; } }
+  .simple-words p { margin: 0; font-size: 1.25rem; line-height: 1.3; }
+  @media (min-width: 768px) { .simple-words p { font-size: 2.1rem; } }
+  .simple-words .acc { color: var(--accent); }
+
+  .feature-grid { display: grid; gap: 1rem; }
+  @media (min-width: 640px) { .feature-grid { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 1024px) { .feature-grid { grid-template-columns: 1fr 1fr 1fr; } }
+  .feature-grid .feature-card { height: 100%; display: flex; align-items: center; gap: 0.75rem; border-radius: var(--radius-md); padding: 1.25rem; }
+  .feature-grid .feature-card span.txt { font-size: 0.875rem; font-weight: 600; }
+
+  .footer-nav-box { display: grid; gap: 1.5rem; border-radius: var(--radius-lg); padding: 1.75rem; }
+  @media (min-width: 768px) { .footer-nav-box { grid-template-columns: minmax(0,1fr) auto; align-items: center; padding: 2.5rem; } }
+  .footer-nav-box .label { color: var(--outline); }
+  .footer-nav-box h2 { margin: 0.5rem 0 0; font-size: 1.5rem; }
+  @media (min-width: 768px) { .footer-nav-box h2 { font-size: 1.875rem; } }
+  .footer-nav-box .tagline { margin-top: 0.5rem; font-size: 0.875rem; color: var(--muted-foreground); }
+  .footer-nav-box .btn-row { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+
+  /* ---------- Footer ---------- */
+  footer.site-footer { margin-top: 6rem; border-top: 1px solid var(--outline); background: var(--surface); }
+  .footer-grid { max-width: 72rem; margin-inline: auto; padding: 3.5rem 1.25rem; display: grid; gap: 3rem; }
+  @media (min-width: 768px) { .footer-grid { grid-template-columns: 1.4fr 1fr 1fr; padding: 3.5rem 2rem; } }
+  .footer-grid .about-col p { margin-top: 1rem; max-width: 24rem; font-size: 0.875rem; line-height: 1.7; color: var(--muted-foreground); }
+  .footer-grid nav .eyebrow { color: var(--outline); }
+  .footer-grid nav ul { margin-top: 1rem; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.875rem; }
+  .footer-grid nav ul a { color: var(--muted-foreground); }
+  .footer-grid nav ul a:hover { color: var(--accent); }
+  .footer-grid .contact-col .eyebrow { color: var(--outline); }
+  .footer-grid .contact-col a.email { margin-top: 1rem; display: inline-flex; font-size: 0.875rem; font-weight: 600; word-break: break-all; }
+  .footer-grid .contact-col a.email:hover { color: var(--accent); }
+  .footer-grid .contact-col .tag-line { margin-top: 1.5rem; display: flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; color: var(--muted-foreground); }
+  .footer-bottom { border-top: 1px solid var(--outline); padding: 1.5rem 1.25rem; }
+  @media (min-width: 768px) { .footer-bottom { padding: 1.5rem 2rem; } }
+  .footer-bottom p { max-width: 72rem; margin-inline: auto; font-size: 0.75rem; color: var(--muted-foreground); }
+
+  [data-page] { display: none; }
+  [data-page].active { display: block; }
 </style>
 </head>
 <body>
 
-<header id="siteHeader">
-  <div class="container nav-inner">
-    <a href="#hero" class="logo">samskrithi<span class="dot"></span></a>
-    <nav class="links">
-      <a href="#what-we-do">What We Do</a>
-      <a href="#vivakti">Vivakti</a>
-      <a href="#upasthiti">Upasthiti</a>
-      <a href="#design">Design</a>
-      <a href="#why">Why Us</a>
-    </nav>
-    <div class="nav-cta">
-      <a href="#cta" class="btn btn-accent">Get In Touch</a>
-      <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
-    </div>
-  </div>
-</header>
+<header class="site-header">
+  <div class="nav-inner">
+    <a href="#" class="brand" data-nav-home aria-label="Samskruthi Developers — home">
+      <span class="wordmark"><span class="label">samskruthi</span><span class="dot dot-xs"></span></span>
+      <span class="eyebrow sub">Developers</span>
+    </a>
 
-<div class="mobile-panel" id="mobilePanel">
-  <a href="#what-we-do">What We Do</a>
-  <a href="#vivakti">Vivakti</a>
-  <a href="#upasthiti">Upasthiti</a>
-  <a href="#design">Design</a>
-  <a href="#why">Why Us</a>
-  <a href="#cta">Get In Touch</a>
-</div>
+    <nav class="main-nav" aria-label="Main">
+      <a class="section-link" href="#top" data-nav-home data-anchor="top">Home</a>
+      <a class="section-link" href="#about" data-nav-home data-anchor="about">About</a>
+      <a class="section-link" href="#services" data-nav-home data-anchor="services">Services</a>
+      <a class="section-link" href="#products" data-nav-home data-anchor="products">Products</a>
+      <a class="section-link" href="#contact" data-nav-home data-anchor="contact">Contact</a>
+      <span class="sep" aria-hidden="true"></span>
+      <a class="product-link" href="#" data-nav-page="vivakti">Vivakti</a>
+      <a class="product-link" href="#" data-nav-page="upasthiti">Upasthiti</a>
+    </nav>
+
+    <button type="button" class="btn-base btn-neu menu-btn" id="menuToggle" aria-expanded="false" aria-label="Open menu">
+      <svg class="icon" viewBox="0 0 24 24" id="menuIcon"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+    </button>
+  </div>
+
+  <nav class="mobile-nav" id="mobileNav" aria-label="Mobile">
+    <ul>
+      <li><a href="#top" data-nav-home data-anchor="top">Home</a></li>
+      <li><a href="#about" data-nav-home data-anchor="about">About</a></li>
+      <li><a href="#services" data-nav-home data-anchor="services">Services</a></li>
+      <li><a href="#products" data-nav-home data-anchor="products">Products</a></li>
+      <li><a href="#contact" data-nav-home data-anchor="contact">Contact</a></li>
+    </ul>
+    <p class="eyebrow products-label">Products</p>
+    <ul class="products-list">
+      <li><a href="#" data-nav-page="vivakti">Vivakti →</a></li>
+      <li><a href="#" data-nav-page="upasthiti">Upasthiti →</a></li>
+    </ul>
+  </nav>
+</header>
 
 <main>
 
-  <!-- HERO -->
-  <section id="hero">
-    <div class="container">
-      <span class="eyebrow">Samskrithi Developers</span>
-      <h1 class="hero-title">We turn problems<br/>into <span class="accent-line">solutions</span>.<br/>And brands into <span class="accent-line">identities</span>.</h1>
-      <p class="hero-sub">A technology and creative company building practical digital products — and original, human-made visual design — instead of generic templates.</p>
-      <div class="hero-actions">
-        <a href="#ecosystem" class="btn btn-accent">Explore Our Ecosystem</a>
-        <a href="#design" class="btn">See Our Design Work</a>
-      </div>
-      <div class="hero-branches">
-        <a href="#vivakti" class="branch-chip">
-          <div class="mark">V</div>
-          <div class="txt"><b>Vivakti</b><span>Problem-solving OS</span></div>
-        </a>
-        <a href="#upasthiti" class="branch-chip">
-          <div class="mark">U</div>
-          <div class="txt"><b>Upasthiti</b><span>Attendance, tracked</span></div>
-        </a>
-      </div>
-    </div>
-  </section>
+  <!-- ============ HOME PAGE ============ -->
+  <div data-page="home" class="active">
 
-  <!-- SAMSKRITHI INTRO -->
-  <section id="about">
-    <div class="container reveal">
-      <div class="sec-head">
-        <div class="sec-num">01</div>
-        <h2 class="sec-title">Who We Are<span class="dot"></span></h2>
+    <section id="top" class="hero wrap">
+      <p class="eyebrow tag"><span class="dot"></span>Technology + Creative Design</p>
+      <h1 class="display">
+        <span>Samskruthi</span>
+        <span>Developers</span>
+        <span>Problems, solved.</span>
+      </h1>
+      <p class="lede">We build technology that solves real-world problems and designs that make brands impossible to ignore — original, human-directed, and made for one brand only.</p>
+      <div class="cta-row">
+        <a href="#products" data-nav-home data-anchor="products" class="btn-base btn-accent">Our products <svg class="icon" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+        <a href="#services" data-nav-home data-anchor="services" class="btn-base btn-neu">Design services</a>
       </div>
-      <div style="max-width:760px">
-        <p style="font-size:1.15rem;line-height:1.85;color:var(--on-surface-muted)">Samskrithi Developers builds things that solve real problems — for people navigating everyday complexity, and for brands trying to say something worth noticing. We work in two directions at once: software that does the thinking with you, and design that's made by hand, not assembled from a template.</p>
-      </div>
-    </div>
-  </section>
+      <dl class="stat-grid">
+        <div><dt>Discipline</dt><dd>Tech + Design</dd></div>
+        <div><dt>Design</dt><dd>Human-directed</dd></div>
+        <div><dt>Products</dt><dd>Vivakti · Upasthiti</dd></div>
+        <div><dt>Focus</dt><dd>Real problems</dd></div>
+      </dl>
+    </section>
 
-  <!-- WHAT WE DO -->
-  <section id="what-we-do">
-    <div class="container reveal">
-      <div class="sec-head">
-        <div class="sec-num">02</div>
-        <h2 class="sec-title">What We Do<span class="dot"></span></h2>
+    <section id="about" class="page-section">
+      <div class="section-header reveal">
+        <div class="head-row"><span class="display num">01</span><h2 class="display">About<span class="dot dot-lg" style="margin-left:4px"></span></h2></div>
       </div>
-      <div class="principles">
-        <div class="p-card">
-          <div class="p-icon">⚙</div>
-          <h3>Problem-Solving Software</h3>
-          <p>Vivakti takes a real-world problem from a plain-language description all the way to a measured result — analysis, strategy, execution, and tracking, in one system.</p>
-        </div>
-        <div class="p-card">
-          <div class="p-icon">◔</div>
-          <h3>Student Tools</h3>
-          <p>Upasthiti removes the manual work of attendance tracking for college students — enter your timetable, mark your classes, know your percentage.</p>
-        </div>
-        <div class="p-card">
-          <div class="p-icon">✎</div>
-          <h3>Original Visual Design</h3>
-          <p>Brand identities and social content made by designers who understand the brand, not generated from a prompt and a template library.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- GRAPHIC DESIGN -->
-  <section id="design">
-    <div class="container reveal">
-      <div class="sec-head">
-        <div class="sec-num">03</div>
-        <h2 class="sec-title">Design, Made By Hand<span class="dot"></span></h2>
-      </div>
-      <div class="gd-wrap">
-        <div class="gd-compare">
-          <div class="gd-row">
-            <span class="gd-tag">AI</span>
-            <span class="txt">Generates a template. Fast, generic, forgettable.</span>
-          </div>
-          <div class="gd-row accent">
-            <span class="gd-tag hot">Us</span>
-            <span class="txt">Create a visual identity. Deliberate, brand-first, memorable.</span>
-          </div>
-          <div class="chip-list">
-            <span class="pill">Brand Identity</span>
-            <span class="pill">Social Creatives</span>
-            <span class="pill">Promotional Design</span>
-            <span class="pill">Posters</span>
-            <span class="pill">Digital Campaigns</span>
-            <span class="pill">Custom Graphics</span>
-            <span class="pill">Visual Storytelling</span>
+      <div class="about-grid">
+        <div class="reveal">
+          <p class="display lead">Samskruthi Developers exists at the intersection of technology, creativity, and practical problem solving.</p>
+          <div class="body-text">
+            <p>We build products and services around actual user problems rather than technology for technology's sake. That means we spend as much time understanding the situation as we do building the solution.</p>
+            <p>The company works across two connected disciplines: engineering software that solves something concrete, and creating original visual design that gives a brand an identity of its own.</p>
           </div>
         </div>
-        <div class="prod-visual">
-          <p style="font-size:1rem;color:var(--on-surface-muted);line-height:1.8">Most brands on social media today look the same — because most of them were made the same way. We spend the time an algorithm won't: understanding what a brand actually stands for before we design a single pixel for it.</p>
-          <p class="badge-placeholder">Portfolio samples available on request — placeholder, no fabricated client work shown.</p>
-        </div>
+        <ul class="principles">
+          <li class="reveal">
+            <div class="neu-raised neu-lift principle-card">
+              <span class="neu-inset-sm icon-badge"><svg class="icon" viewBox="0 0 24 24"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.3A7 7 0 0 0 12 2Z"/></svg></span>
+              <h3 class="display">Problem first</h3>
+              <p>Every product starts with a problem someone actually has, not with a technology looking for a use.</p>
+            </div>
+          </li>
+          <li class="reveal" style="transition-delay:90ms">
+            <div class="neu-raised neu-lift principle-card">
+              <span class="neu-inset-sm icon-badge"><svg class="icon" viewBox="0 0 24 24"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></svg></span>
+              <h3 class="display">Original by default</h3>
+              <p>Design work is directed by people. Nothing is assembled from a template that a hundred other brands already used.</p>
+            </div>
+          </li>
+          <li class="reveal" style="transition-delay:180ms">
+            <div class="neu-raised neu-lift principle-card">
+              <span class="neu-inset-sm icon-badge"><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></span>
+              <h3 class="display">Useful, then beautiful</h3>
+              <p>Craft matters — but only after the thing works, ships, and measurably helps the person using it.</p>
+            </div>
+          </li>
+        </ul>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ECOSYSTEM -->
-  <section id="ecosystem">
-    <div class="container reveal">
-      <div class="sec-head">
-        <div class="sec-num">04</div>
-        <h2 class="sec-title">Our Ecosystem<span class="dot"></span></h2>
+    <section id="services" class="page-section">
+      <div class="section-header reveal">
+        <div class="head-row"><span class="display num">02</span><h2 class="display">Graphic Design<span class="dot dot-lg" style="margin-left:4px"></span></h2></div>
       </div>
-      <div class="tree">
-        <div class="tree-root">
-          <h3>Samskrithi Developers</h3>
-          <p>Parent company — software &amp; design</p>
+
+      <div class="neu-inset problem-box reveal">
+        <p class="eyebrow"><span class="dot"></span>The problem</p>
+        <p class="display big">Everyone has access to AI-generated templates. Very few brands have something that actually feels like theirs.</p>
+      </div>
+
+      <div class="services-grid">
+        <div class="copy reveal">
+          <p>Many businesses now rely on the same generic, AI-generated templates for Instagram posts, advertisements, announcements, and promotional content. The output is fast — and it looks like everyone else's.</p>
+          <p>As AI-generated content becomes increasingly common, generic visuals are becoming harder to distinguish. Original, brand-specific creative work helps businesses stand apart from template-driven content.</p>
+          <p class="strong">We create original graphics directed by people and tailored to the specific brand, message, audience, and campaign.</p>
         </div>
-        <div class="tree-line"></div>
-        <div class="tree-branches">
-          <div style="display:flex;flex-direction:column;align-items:center">
-            <div class="tree-branch-line"></div>
-            <a href="#vivakti" class="branch-card" style="text-decoration:none;color:inherit">
-              <div class="b-mark">V</div>
-              <h4>Vivakti</h4>
-              <p>An AI-powered operating system that takes real-world problems from first description to measured result.</p>
-            </a>
+        <div class="mock-grid">
+          <div class="reveal">
+            <figure class="neu-raised neu-lift mock-card">
+              <div class="mock-visual"><span class="accent-bar"></span><span class="accent-block"></span><span class="accent-dot2"></span></div>
+              <figcaption><span class="eyebrow tag">Instagram</span><p class="title">Launch Announcement</p><p class="ratio">1:1</p></figcaption>
+            </figure>
           </div>
-          <div style="display:flex;flex-direction:column;align-items:center">
-            <div class="tree-branch-line"></div>
-            <a href="#upasthiti" class="branch-card" style="text-decoration:none;color:inherit">
-              <div class="b-mark">U</div>
-              <h4>Upasthiti</h4>
-              <p>A simple attendance companion for college students — enter, track, and know your percentage.</p>
-            </a>
+          <div class="reveal" style="transition-delay:100ms">
+            <figure class="neu-raised neu-lift mock-card">
+              <div class="mock-visual"><span class="accent-bar"></span><span class="accent-block"></span><span class="accent-dot2"></span></div>
+              <figcaption><span class="eyebrow tag">Campaign</span><p class="title">Festive Series</p><p class="ratio">4:5</p></figcaption>
+            </figure>
+          </div>
+          <div class="reveal" style="transition-delay:200ms">
+            <figure class="neu-raised neu-lift mock-card">
+              <div class="mock-visual"><span class="accent-bar"></span><span class="accent-block"></span><span class="accent-dot2"></span></div>
+              <figcaption><span class="eyebrow tag">Poster</span><p class="title">Event Identity</p><p class="ratio">3:4</p></figcaption>
+            </figure>
           </div>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- VIVAKTI -->
-  <section id="vivakti">
-    <div class="container reveal">
-      <div class="sec-head">
-        <div class="sec-num">05</div>
-        <h2 class="sec-title">Vivakti<span class="dot"></span></h2>
+      <div class="deliverables reveal">
+        <p class="eyebrow label">What we design</p>
+        <ul>
+          <li class="neu-flat"><span class="dot dot-sm"></span>Social Media Posts</li>
+          <li class="neu-flat"><span class="dot dot-sm"></span>Instagram Creatives</li>
+          <li class="neu-flat"><span class="dot dot-sm"></span>Promotional Designs</li>
+          <li class="neu-flat"><span class="dot dot-sm"></span>Brand Graphics</li>
+          <li class="neu-flat"><span class="dot dot-sm"></span>Campaign Creatives</li>
+          <li class="neu-flat"><span class="dot dot-sm"></span>Event Posters</li>
+          <li class="neu-flat"><span class="dot dot-sm"></span>Digital Advertisements</li>
+          <li class="neu-flat"><span class="dot dot-sm"></span>Custom Visual Content</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="products" class="page-section">
+      <div class="section-header reveal">
+        <div class="head-row"><span class="display num">03</span><h2 class="display">Two problems. Two apps. One vision.<span class="dot dot-lg" style="margin-left:4px"></span></h2></div>
+        <p class="kicker">Vivakti and Upasthiti are apps built by Samskruthi Developers — each aimed at a specific, everyday problem.</p>
       </div>
 
-      <div class="prod-hero">
-        <div class="prod-copy">
-          <span class="sec-kicker">Problem-Solving Operating System</span>
-          <p>Most people don't need another app to search through. They need to describe a problem in their own words and be handed a way through it. Vivakti reads the problem, works out why it's happening, builds a strategy around it, and stays with you through execution and results.</p>
-          <p>It isn't a chatbot that answers questions. It's a system that turns a problem into a plan — with objectives, cost estimates, timelines, and a way to track whether it actually worked.</p>
+      <div class="products-grid">
+        <article class="reveal">
+          <div class="neu-raised neu-lift product-card">
+            <div class="top-row">
+              <div><span class="display num">01</span><h3 class="display">Vivakti</h3><span class="eyebrow type">AI-powered app</span></div>
+              <span class="neu-inset-sm badge"><svg class="icon" viewBox="0 0 24 24"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/></svg></span>
+            </div>
+            <p class="tagline">Real-world problem solving, powered by AI.</p>
+            <p class="desc">Vivakti is an AI-powered problem-solving app designed to take users from identifying a problem to achieving a measurable solution.</p>
+            <a href="#" data-nav-page="vivakti" class="btn-base btn-neu">Explore Vivakti <svg class="icon" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+          </div>
+        </article>
+        <article class="reveal" style="transition-delay:120ms">
+          <div class="neu-raised neu-lift product-card">
+            <div class="top-row">
+              <div><span class="display num">02</span><h3 class="display">Upasthiti</h3><span class="eyebrow type">Student app</span></div>
+              <span class="neu-inset-sm badge"><svg class="icon" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="m9 16 2 2 4-4"/></svg></span>
+            </div>
+            <p class="tagline">Attendance tracking without the headache.</p>
+            <p class="desc">Upasthiti is an attendance tracking app that helps students monitor their attendance percentage, schedule, and academic attendance status with ease.</p>
+            <a href="#" data-nav-page="upasthiti" class="btn-base btn-neu">Explore Upasthiti <svg class="icon" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="contact" class="page-section">
+      <div class="section-header reveal">
+        <div class="head-row"><span class="display num">04</span><h2 class="display">Contact<span class="dot dot-lg" style="margin-left:4px"></span></h2></div>
+      </div>
+      <div class="neu-raised contact-box reveal">
+        <div class="contact-grid">
+          <div>
+            <p class="display big">Have a problem worth solving, or a brand that deserves original design?</p>
+            <p class="sub">Tell us what you're working on. We'll reply with how we'd approach it.</p>
+          </div>
+          <a href="mailto:samskruthi.contact@gmail.com" class="btn-base btn-accent"><svg class="icon" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg> Email us</a>
         </div>
-        <div class="prod-visual">
-          <div class="flow-step hot"><div class="n">1</div><span class="t">"I have a problem."</span></div>
-          <div class="flow-connect"></div>
-          <div class="flow-step"><div class="n">2</div><span class="t">"Here's why it's happening."</span></div>
-          <div class="flow-connect"></div>
-          <div class="flow-step"><div class="n">3</div><span class="t">"Here's the strategy to solve it."</span></div>
-          <div class="flow-connect"></div>
-          <div class="flow-step"><div class="n">4</div><span class="t">"Here's how we execute it."</span></div>
-          <div class="flow-connect"></div>
-          <div class="flow-step hot"><div class="n">5</div><span class="t">"Here's the result — and what's next."</span></div>
+        <p class="email-line">samskruthi.contact@gmail.com</p>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ============ VIVAKTI PAGE ============ -->
+  <div data-page="vivakti">
+    <section class="wrap product-hero">
+      <a href="#" data-nav-home data-anchor="top" class="eyebrow back-link"><svg class="icon" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg> Back to Samskruthi Developers</a>
+      <p class="eyebrow tag"><span class="dot dot-xs"></span> An app by Samskruthi Developers</p>
+      <h1 class="display">Vivakti</h1>
+      <p class="display headline">An AI-powered problem-solving app.</p>
+      <p class="intro">Vivakti is designed to help users solve real-life problems from start to finish — from the moment a problem is described to the moment its solution is measured.</p>
+      <dl class="meta">
+        <div><dt>Type</dt><dd>AI-powered app</dd></div>
+        <div><dt>Purpose</dt><dd>Real-world problem solving</dd></div>
+        <div><dt>Approach</dt><dd>Problem → Results → Growth</dd></div>
+      </dl>
+    </section>
+
+    <section class="page-section" style="padding-block:2.5rem">
+      <div class="reveal">
+        <p class="eyebrow label" style="color:var(--outline);margin-bottom:1.25rem">The concept</p>
+        <ol class="flow-row">
+          <li><span class="neu-flat pill">Problem</span><span class="dot dot-sm"></span></li>
+          <li><span class="neu-flat pill">Analysis</span><span class="dot dot-sm"></span></li>
+          <li><span class="neu-flat pill">Strategy</span><span class="dot dot-sm"></span></li>
+          <li><span class="neu-flat pill">Execution</span><span class="dot dot-sm"></span></li>
+          <li><span class="neu-flat pill">Tracking</span><span class="dot dot-sm"></span></li>
+          <li><span class="neu-flat pill">Results</span><span class="dot dot-sm"></span></li>
+          <li><span class="neu-flat pill">Growth</span></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="page-section">
+      <div class="section-header reveal">
+        <div class="head-row"><span class="display num">01</span><h2 class="display">How Vivakti works<span class="dot dot-lg" style="margin-left:4px"></span></h2></div>
+        <p class="kicker">Instead of figuring out which service, expert or solution they need, users simply describe the problem. Vivakti turns it into an actionable plan.</p>
+      </div>
+      <ol class="timeline">
+        <span class="rail" aria-hidden="true"></span>
+        <li class="timeline-item reveal">
+          <div class="grid2"><div class="num-badge"><span class="neu-raised">01</span></div>
+            <div class="neu-raised card"><span class="display num-mobile">01</span><h3 class="display">Describe the problem</h3><p>The user explains their problem naturally, in their own words — no forms, no guessing which service or expert they need.</p></div>
+          </div>
+        </li>
+        <li class="timeline-item reveal" style="transition-delay:70ms">
+          <div class="grid2"><div class="num-badge"><span class="neu-raised">02</span></div>
+            <div class="neu-raised card"><span class="display num-mobile">02</span><h3 class="display">Understand the root cause</h3><p>Vivakti analyses the problem and identifies the underlying causes rather than the visible symptoms.</p></div>
+          </div>
+        </li>
+        <li class="timeline-item reveal" style="transition-delay:140ms">
+          <div class="grid2"><div class="num-badge"><span class="neu-raised">03</span></div>
+            <div class="neu-raised card"><span class="display num-mobile">03</span><h3 class="display">Build a strategy</h3><p>Vivakti creates a customised strategy based on the user's specific situation.</p>
+              <ul class="bullets"><li class="neu-inset-sm">Objectives</li><li class="neu-inset-sm">Estimated costs</li><li class="neu-inset-sm">Timeline</li><li class="neu-inset-sm">Expected outcomes</li><li class="neu-inset-sm">Required actions</li></ul>
+            </div>
+          </div>
+        </li>
+        <li class="timeline-item reveal" style="transition-delay:210ms">
+          <div class="grid2"><div class="num-badge"><span class="neu-raised">04</span></div>
+            <div class="neu-raised card"><span class="display num-mobile">04</span><h3 class="display">Set up &amp; execute</h3><p>The user is guided step by step through implementing the solution.</p></div>
+          </div>
+        </li>
+        <li class="timeline-item reveal" style="transition-delay:280ms">
+          <div class="grid2"><div class="num-badge"><span class="neu-raised">05</span></div>
+            <div class="neu-raised card"><span class="display num-mobile">05</span><h3 class="display">Track progress</h3><p>Vivakti helps monitor progress in real time as the plan is carried out.</p></div>
+          </div>
+        </li>
+        <li class="timeline-item reveal" style="transition-delay:350ms">
+          <div class="grid2"><div class="num-badge"><span class="neu-raised">06</span></div>
+            <div class="neu-raised card"><span class="display num-mobile">06</span><h3 class="display">Measure results</h3><p>At the end, Vivakti evaluates whether the solution actually worked.</p></div>
+          </div>
+        </li>
+        <li class="timeline-item reveal" style="transition-delay:420ms">
+          <div class="grid2"><div class="num-badge"><span class="neu-raised">07</span></div>
+            <div class="neu-raised card"><span class="display num-mobile">07</span><h3 class="display">Discover what's next</h3><p>Vivakti can suggest future opportunities for improvement and growth.</p></div>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <section class="page-section">
+      <div class="section-header reveal"><div class="head-row"><span class="display num">02</span><h2 class="display">In simple words<span class="dot dot-lg" style="margin-left:4px"></span></h2></div></div>
+      <div class="neu-inset simple-words reveal">
+        <p class="display">You describe the problem.<br><span class="acc">Vivakti figures out what is actually causing it,</span> builds a plan, helps you execute it, tracks the progress, and measures the result.</p>
+      </div>
+    </section>
+
+    <section class="page-section">
+      <div class="section-header reveal"><div class="head-row"><span class="display num">03</span><h2 class="display">What Vivakti gives you<span class="dot dot-lg" style="margin-left:4px"></span></h2></div></div>
+      <ul class="feature-grid">
+        <li class="reveal"><div class="neu-flat neu-lift feature-card"><span class="dot"></span><span class="txt">Natural-language problem input</span></div></li>
+        <li class="reveal" style="transition-delay:60ms"><div class="neu-flat neu-lift feature-card"><span class="dot"></span><span class="txt">Root-cause analysis</span></div></li>
+        <li class="reveal" style="transition-delay:120ms"><div class="neu-flat neu-lift feature-card"><span class="dot"></span><span class="txt">Custom strategy</span></div></li>
+        <li class="reveal" style="transition-delay:180ms"><div class="neu-flat neu-lift feature-card"><span class="dot"></span><span class="txt">Objectives &amp; required actions</span></div></li>
+        <li class="reveal" style="transition-delay:240ms"><div class="neu-flat neu-lift feature-card"><span class="dot"></span><span class="txt">Estimated costs &amp; timeline</span></div></li>
+        <li class="reveal" style="transition-delay:300ms"><div class="neu-flat neu-lift feature-card"><span class="dot"></span><span class="txt">Guided execution</span></div></li>
+        <li class="reveal" style="transition-delay:360ms"><div class="neu-flat neu-lift feature-card"><span class="dot"></span><span class="txt">Real-time progress tracking</span></div></li>
+        <li class="reveal" style="transition-delay:420ms"><div class="neu-flat neu-lift feature-card"><span class="dot"></span><span class="txt">Outcome measurement</span></div></li>
+        <li class="reveal" style="transition-delay:480ms"><div class="neu-flat neu-lift feature-card"><span class="dot"></span><span class="txt">Next-step suggestions</span></div></li>
+      </ul>
+    </section>
+
+    <section class="page-section">
+      <div class="neu-inset footer-nav-box reveal">
+        <div><p class="eyebrow label">Also by Samskruthi Developers</p><h2 class="display">Upasthiti</h2><p class="tagline">Attendance tracking made simple, for students.</p></div>
+        <div class="btn-row">
+          <a href="#" data-nav-home data-anchor="top" class="btn-base btn-neu"><svg class="icon" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg> Main site</a>
+          <a href="#" data-nav-page="upasthiti" class="btn-base btn-accent">Explore Upasthiti <svg class="icon" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
         </div>
       </div>
+    </section>
+  </div>
 
-      <span class="sec-kicker" style="display:block;margin-bottom:1.5rem">The Full Journey</span>
-      <div class="workflow-grid">
-        <div class="wf-card"><div class="wf-num">01</div><h5>Describe</h5><p>Explain the problem in plain, natural language — no forms, no jargon.</p></div>
-        <div class="wf-card"><div class="wf-num">02</div><h5>Analyze</h5><p>Vivakti reads the situation and understands what's actually going on.</p></div>
-        <div class="wf-card"><div class="wf-num">03</div><h5>Root Cause</h5><p>Identifies the real source of the problem, not just its symptoms.</p></div>
-        <div class="wf-card"><div class="wf-num">04</div><h5>Strategy</h5><p>Builds a customized plan — objectives, cost estimates, timelines.</p></div>
-        <div class="wf-card"><div class="wf-num">05</div><h5>Execution</h5><p>Helps connect or set up what's needed, and assists as it happens.</p></div>
-        <div class="wf-card"><div class="wf-num">06</div><h5>Tracking</h5><p>Follows progress in real time as the plan plays out.</p></div>
-        <div class="wf-card"><div class="wf-num">07</div><h5>Results</h5><p>Measures the outcome against what was actually planned.</p></div>
-        <div class="wf-card final"><div class="wf-num">08</div><h5>Future Growth</h5><p>Suggests what to improve or tackle next, based on what happened.</p></div>
-      </div>
-    </div>
-  </section>
+  <!-- ============ UPASTHITI PAGE ============ -->
+  <div data-page="upasthiti">
+    <section class="wrap product-hero">
+      <a href="#" data-nav-home data-anchor="top" class="eyebrow back-link"><svg class="icon" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg> Back to Samskruthi Developers</a>
+      <p class="eyebrow tag"><span class="dot dot-xs"></span> An app by Samskruthi Developers</p>
+      <h1 class="display">Upasthiti</h1>
+      <p class="display headline">Attendance tracking made simple.</p>
+      <p class="intro">Upasthiti is an attendance tracking app designed especially for students who struggle to keep track of their attendance.</p>
+      <dl class="meta">
+        <div><dt>Type</dt><dd>Student app</dd></div>
+        <div><dt>Purpose</dt><dd>Attendance tracking</dd></div>
+        <div><dt>Flow</dt><dd>Timetable → Record → Track</dd></div>
+      </dl>
+    </section>
 
-  <!-- UPASTHITI -->
-  <section id="upasthiti">
-    <div class="container reveal">
-      <div class="sec-head">
-        <div class="sec-num">06</div>
-        <h2 class="sec-title">Upasthiti<span class="dot"></span></h2>
+    <section class="page-section" style="padding-block:2.5rem">
+      <div class="reveal">
+        <p class="eyebrow label" style="color:var(--outline);margin-bottom:1.25rem">The idea, in three steps</p>
+        <ol class="flow-row">
+          <li><span class="neu-flat pill">Enter your timetable</span><span class="dot dot-sm"></span></li>
+          <li><span class="neu-flat pill">Record attendance</span><span class="dot dot-sm"></span></li>
+          <li><span class="neu-flat pill">Track your percentage</span></li>
+        </ol>
       </div>
+    </section>
 
-      <div class="prod-hero rev">
-        <div class="prod-copy">
-          <span class="sec-kicker">Attendance, Without The Headache</span>
-          <p>Every college student does the same math in their head at some point in the semester: how many classes can I miss before it's a problem? Upasthiti answers that instantly. Enter your timetable, mark what you attended, and see exactly where you stand — subject by subject.</p>
-          <div class="prod-tagline">Enter. Track. Know Your Percentage.</div>
-        </div>
-        <div class="dash">
-          <div class="dash-top"><b>Overall Attendance</b><span class="dash-pct">82%</span></div>
-          <div class="bar-row"><span class="lbl">Maths</span><div class="bar-track"><div class="bar-fill" style="width:91%"></div></div></div>
-          <div class="bar-row"><span class="lbl">Physics</span><div class="bar-track"><div class="bar-fill" style="width:76%"></div></div></div>
-          <div class="bar-row"><span class="lbl">CS Lab</span><div class="bar-track"><div class="bar-fill" style="width:88%"></div></div></div>
-          <div class="bar-row"><span class="lbl">English</span><div class="bar-track"><div class="bar-fill" style="width:69%"></div></div></div>
-          <p class="badge-placeholder">Illustrative dashboard — sample data, not live figures.</p>
-        </div>
-      </div>
+    <section class="page-section">
+      <div class="section-header reveal"><div class="head-row"><span class="display num">01</span><h2 class="display">How it works<span class="dot dot-lg" style="margin-left:4px"></span></h2></div></div>
+      <ol class="timeline">
+        <span class="rail" aria-hidden="true"></span>
+        <li class="timeline-item reveal">
+          <div class="grid2"><div class="num-badge"><span class="neu-raised">01</span></div>
+            <div class="neu-raised card"><span class="display num-mobile">01</span><h3 class="display">Enter your timetable</h3><p>Students enter their class timetable once, so the app knows which classes happen when.</p></div>
+          </div>
+        </li>
+        <li class="timeline-item reveal" style="transition-delay:70ms">
+          <div class="grid2"><div class="num-badge"><span class="neu-raised">02</span></div>
+            <div class="neu-raised card"><span class="display num-mobile">02</span><h3 class="display">Record attendance</h3><p>Students mark whether they were present or absent as they attend their classes.</p></div>
+          </div>
+        </li>
+        <li class="timeline-item reveal" style="transition-delay:140ms">
+          <div class="grid2"><div class="num-badge"><span class="neu-raised">03</span></div>
+            <div class="neu-raised card"><span class="display num-mobile">03</span><h3 class="display">Track attendance</h3><p>Upasthiti calculates and displays the attendance percentage.</p></div>
+          </div>
+        </li>
+        <li class="timeline-item reveal" style="transition-delay:210ms">
+          <div class="grid2"><div class="num-badge"><span class="neu-raised">04</span></div>
+            <div class="neu-raised card"><span class="display num-mobile">04</span><h3 class="display">Understand your attendance</h3><p>Students can see detailed information about their attendance and keep track of their academic attendance status.</p></div>
+          </div>
+        </li>
+      </ol>
+    </section>
 
-      <span class="sec-kicker" style="display:block;margin-bottom:1.5rem">How It Works</span>
-      <div class="up-chain">
-        <div class="up-card"><div class="up-icon">📅</div><h5>Add Timetable</h5><p>Set up your weekly class schedule once.</p></div>
-        <div class="up-arrow">→</div>
-        <div class="up-card"><div class="up-icon">✓</div><h5>Mark Attendance</h5><p>Log each class as it happens.</p></div>
-        <div class="up-arrow">→</div>
-        <div class="up-card"><div class="up-icon">%</div><h5>Track Percentage</h5><p>See it calculated automatically.</p></div>
-        <div class="up-arrow">→</div>
-        <div class="up-card"><div class="up-icon">◔</div><h5>Understand It</h5><p>Know exactly where you stand, subject by subject.</p></div>
-      </div>
-    </div>
-  </section>
+    <section class="page-section">
+      <div class="section-header reveal"><div class="head-row"><span class="display num">02</span><h2 class="display">Features<span class="dot dot-lg" style="margin-left:4px"></span></h2></div></div>
+      <ul class="feature-grid">
+        <li class="reveal"><div class="neu-flat neu-lift feature-card"><span class="dot"></span><span class="txt">Attendance Percentage</span></div></li>
+        <li class="reveal" style="transition-delay:60ms"><div class="neu-flat neu-lift feature-card"><span class="dot"></span><span class="txt">Timetable Management</span></div></li>
+        <li class="reveal" style="transition-delay:120ms"><div class="neu-flat neu-lift feature-card"><span class="dot"></span><span class="txt">Present/Absent Tracking</span></div></li>
+        <li class="reveal" style="transition-delay:180ms"><div class="neu-flat neu-lift feature-card"><span class="dot"></span><span class="txt">Subject-wise Attendance</span></div></li>
+        <li class="reveal" style="transition-delay:240ms"><div class="neu-flat neu-lift feature-card"><span class="dot"></span><span class="txt">Attendance Overview</span></div></li>
+        <li class="reveal" style="transition-delay:300ms"><div class="neu-flat neu-lift feature-card"><span class="dot"></span><span class="txt">Easy Daily Updates</span></div></li>
+        <li class="reveal" style="transition-delay:360ms"><div class="neu-flat neu-lift feature-card"><span class="dot"></span><span class="txt">Student-friendly Dashboard</span></div></li>
+      </ul>
+    </section>
 
-  <!-- WHY US -->
-  <section id="why">
-    <div class="container reveal">
-      <div class="sec-head">
-        <div class="sec-num">07</div>
-        <h2 class="sec-title">Why Samskrithi<span class="dot"></span></h2>
-      </div>
-      <div class="why-grid">
-        <div class="why-card"><div class="num">01</div><h5>Built On Real Problems</h5><p>Every product starts from something people actually struggle with, not a feature we thought would be interesting.</p></div>
-        <div class="why-card"><div class="num">02</div><h5>Software That Follows Through</h5><p>Vivakti doesn't stop at advice — it stays through execution, tracking, and results.</p></div>
-        <div class="why-card"><div class="num">03</div><h5>Design That's Actually Made</h5><p>No templates, no AI-generated filler — every design starts from the brand it's for.</p></div>
-        <div class="why-card"><div class="num">04</div><h5>Deliberately Simple</h5><p>Upasthiti proves that not every problem needs a complicated system to solve it.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <section id="cta">
-    <div class="container reveal">
-      <div class="cta-box">
-        <h2>Have a problem worth solving?<span class="dot"></span></h2>
-        <p>Whether it's a system to build, an attendance headache to remove, or a brand that needs an identity — we'd like to hear about it.</p>
-        <div class="cta-actions">
-          <a href="mailto:hello@samskrithideveloper.com" class="btn btn-accent">Start A Conversation</a>
-          <a href="#ecosystem" class="btn">Back To The Ecosystem</a>
+    <section class="page-section">
+      <div class="neu-inset footer-nav-box reveal">
+        <div><p class="eyebrow label">Also by Samskruthi Developers</p><h2 class="display">Vivakti</h2><p class="tagline">Real-world problem solving, powered by AI.</p></div>
+        <div class="btn-row">
+          <a href="#" data-nav-home data-anchor="top" class="btn-base btn-neu"><svg class="icon" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg> Main site</a>
+          <a href="#" data-nav-page="vivakti" class="btn-base btn-accent">Explore Vivakti <svg class="icon" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </div>
 
 </main>
 
-<footer>
-  <div class="container">
-    <div class="foot-grid">
-      <div class="foot-brand">
-        <div class="logo">samskrithi<span class="dot"></span></div>
-        <p>A technology and creative company building practical digital products and original, human-made visual design.</p>
-      </div>
-      <div class="foot-col">
-        <h6>Products</h6>
-        <a href="#vivakti">Vivakti</a>
-        <a href="#upasthiti">Upasthiti</a>
-        <a href="#design">Graphic Design</a>
-      </div>
-      <div class="foot-col">
-        <h6>Company</h6>
-        <a href="#about">About</a>
-        <a href="#why">Why Us</a>
-        <a href="#cta">Contact</a>
-      </div>
-      <div class="foot-col">
-        <h6>Contact</h6>
-        <a href="mailto:hello@samskrithideveloper.com">hello@samskrithideveloper.com</a>
-        <span class="badge-placeholder">Placeholder — replace with real contact details</span>
-      </div>
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div class="about-col">
+      <span class="wordmark" style="font-size:1.25rem"><span class="label">samskruthi</span><span class="dot dot-xs"></span></span>
+      <p>Samskruthi Developers builds technology that solves real-world problems and original, human-directed design that gives brands an identity of their own.</p>
     </div>
-    <div class="foot-bottom">
-      <span>© 2026 Samskrithi Developers. All rights reserved.</span>
-      <span>Vivakti · Upasthiti</span>
+    <nav aria-label="Footer">
+      <p class="eyebrow">Navigate</p>
+      <ul>
+        <li><a href="#top" data-nav-home data-anchor="top">Home</a></li>
+        <li><a href="#about" data-nav-home data-anchor="about">About</a></li>
+        <li><a href="#services" data-nav-home data-anchor="services">Services</a></li>
+        <li><a href="#contact" data-nav-home data-anchor="contact">Contact</a></li>
+        <li><a href="#" data-nav-page="vivakti">Vivakti</a></li>
+        <li><a href="#" data-nav-page="upasthiti">Upasthiti</a></li>
+      </ul>
+    </nav>
+    <div class="contact-col">
+      <p class="eyebrow">Contact</p>
+      <a href="mailto:samskruthi.contact@gmail.com" class="email">samskruthi.contact@gmail.com</a>
+      <p class="tag-line"><span class="dot"></span>Technology + Creative Design</p>
     </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© <span id="year"></span> Samskruthi Developers. All rights reserved.</p>
   </div>
 </footer>
 
 <script>
-// header scroll state
-const header = document.getElementById('siteHeader');
-window.addEventListener('scroll', () => {
-  header.classList.toggle('scrolled', window.scrollY > 20);
-});
+  document.getElementById('year').textContent = new Date().getFullYear();
 
-// mobile menu
-const menuBtn = document.getElementById('menuBtn');
-const panel = document.getElementById('mobilePanel');
-menuBtn.addEventListener('click', () => {
-  const open = panel.classList.toggle('open');
-  menuBtn.setAttribute('aria-expanded', open);
-});
-panel.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-  panel.classList.remove('open');
-  menuBtn.setAttribute('aria-expanded', 'false');
-}));
+  var pages = document.querySelectorAll('[data-page]');
+  var productLinks = document.querySelectorAll('.product-link');
+  var mobileNav = document.getElementById('mobileNav');
+  var menuToggle = document.getElementById('menuToggle');
+  var menuIcon = document.getElementById('menuIcon');
 
-// scroll reveal
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: 0.08 });
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  function closeMenu() {
+    mobileNav.classList.remove('open');
+    menuToggle.setAttribute('aria-expanded', 'false');
+    menuIcon.innerHTML = '<line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/>';
+  }
+
+  menuToggle.addEventListener('click', function () {
+    var open = mobileNav.classList.toggle('open');
+    menuToggle.setAttribute('aria-expanded', String(open));
+    menuIcon.innerHTML = open
+      ? '<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>'
+      : '<line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/>';
+  });
+
+  function showPage(name) {
+    pages.forEach(function (p) {
+      p.classList.toggle('active', p.getAttribute('data-page') === name);
+    });
+    productLinks.forEach(function (l) {
+      l.classList.toggle('active', l.getAttribute('data-nav-page') === name);
+    });
+    window.scrollTo({ top: 0, behavior: 'auto' });
+    initReveal();
+  }
+
+  function goHome(anchorId) {
+    showPage('home');
+    if (anchorId && anchorId !== 'top') {
+      requestAnimationFrame(function () {
+        var el = document.getElementById(anchorId);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    }
+  }
+
+  document.querySelectorAll('[data-nav-home]').forEach(function (link) {
+    link.addEventListener('click', function (e) {
+      e.preventDefault();
+      closeMenu();
+      goHome(link.getAttribute('data-anchor'));
+    });
+  });
+
+  document.querySelectorAll('[data-nav-page]').forEach(function (link) {
+    link.addEventListener('click', function (e) {
+      e.preventDefault();
+      closeMenu();
+      showPage(link.getAttribute('data-nav-page'));
+    });
+  });
+
+  var io;
+  function initReveal() {
+    if (io) io.disconnect();
+    io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('reveal-in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+
+    document.querySelectorAll('[data-page].active .reveal').forEach(function (el) {
+      io.observe(el);
+    });
+  }
+
+  initReveal();
 </script>
+
 </body>
 </html>
